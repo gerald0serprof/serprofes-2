@@ -1,4 +1,6 @@
-/* 1. Reseteo Web */
+/* 1. Reseteo Web 
+*/
+
 *{
     margin: 0;
     padding: 0;
@@ -74,19 +76,22 @@ body{
 }
 .btn-enviar:hover {
     background-color: rgb(78, 80, 208);
-    color: beige);
+    color: beige;
     transform: scale(1.02);/*El botón crece un poco más*/
 }
 
-/* 2. El secreto: Responsive Design(móviles) */
 
-@media (max-width: 300px) {
+/* 2. El secreto: Responsive Design (web y móvil) 
+*/
+
+@media (min-width: 500px) {
     .form-container{
-        width: 100%;
+        width: 50%;
         padding: 20px;
     }
     body{
-        background-color: aquamarine;
+        background: (135deg, rgb(82, 175, 132), rgb(88, 119, 197) 100%);
+
     }
 }
 

@@ -1,0 +1,92 @@
+/* 1. Reseteo Web */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+
+body{
+    /*Efecto wowo 1: Fondo degradado*/
+    background: linear-gradient(135deg, rgb(88, 119, 197), rgb(82, 175, 132) 100%);
+    height: 100vh;/*se ajustará en toda la altura*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+/* Tarjeta blanca flotante*/
+.form-container{
+    background-color: rgb(235, 240, 246);
+    padding: 40px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(87, 94, 54, 0.5);
+    width: 450px;
+    text-align: center;
+}
+.form-container h2{
+    margin-bottom: 10px;
+    color: rgb(52, 51, 48);
+}
+.form-container p{
+    margin-bottom: 25px;
+    color: rgb(54, 75, 68);
+}
+
+/*Maquetación de Inputs*/
+.input-group{
+    margin-bottom: 20px;
+    text-align: left;
+}
+.input-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: rgb(28, 75, 145);
+}
+.input-group input{
+    width: 100%;
+    padding: 12px;
+    border: 2px solid white;
+    border-radius: 8px;
+    outline: none; /*quita el morde azul nativo*/
+    transition: 0.4s;
+}
+/*Efecto al hacer click para escribir*/
+.input-group input:focus {
+    border-color: aquamarine;
+    border-style: groove;
+}
+
+/*Efecto Wow 2: El botón premium*/
+.btn-enviar{
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-enviar:hover {
+    background-color: rgb(78, 80, 208);
+    color: beige);
+    transform: scale(1.02);/*El botón crece un poco más*/
+}
+
+/* 2. El secreto: Responsive Design(móviles) */
+
+@media (max-width: 300px) {
+    .form-container{
+        width: 100%;
+        padding: 20px;
+    }
+    body{
+        background-color: aquamarine;
+    }
+}
+

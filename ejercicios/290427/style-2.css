@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  padding: 20px;
+}
+
+.form-container {
+  max-width: 560px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 36px 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.form-container p {
+  margin: 0 0 24px 0;
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+input {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 0.98rem;
+  outline: none;
+  background-color: #f9fafb;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.btn-enviar {
+  padding: 14px 20px;
+  background: #1f2937;
+  color: #f9fafb;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.02rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-enviar:hover {
+  background: #111827;
+  transform: translateY(-1px);
+}
+
+/* Responsive: móviles */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 24px 18px;
+    border-radius: 12px;
+  }
+  .btn-enviar {
+    padding: 12px 18px;
+    font-size: 0.96rem;
+  }
+}

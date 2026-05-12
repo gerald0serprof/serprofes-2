@@ -13,3 +13,14 @@ document.getElementById("prod-nombre").textContent=producto.nombre;
 document.getElementById("prod-precio").textContent=producto.precio;
 document.getElementById("prod-cat").textContent=producto.categoria;
 
+function mostrarMiFicha(){
+    let alumno = {
+        nombre: "Alex",
+        edad: 33,
+        ciudad: "Madrid",
+    };
+    //let alumno = document.getElementById("alum-nombre").textContent=alumno.nombre;
+    document.getElementById("alum-nombre").textContent=alumno.nombre;
+    document.getElementById("alum-edad").textContent=alumno.edad;
+    document.getElementById("alum-ciudad").textContent=alumno.ciudad;
+}

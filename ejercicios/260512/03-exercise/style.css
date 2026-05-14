@@ -25,7 +25,8 @@ body {
 h2 {
     text-align: center;
     color: #333;
-    border-bottom: 2px dashed white;
+    border-bottom: 2px dashed whit#ccc;
+    padding-bottom: 10px;
 }
 
 ul {
@@ -38,6 +39,7 @@ li {
     padding: 10px 0;
     border-bottom: 1px solid white;
     font-size: 1.1rem;
+    display: flex;
     justify-content: space-between;
 }
 
@@ -47,6 +49,7 @@ button {
     border: none;
     padding: 5px 3px 5px;
     width: 80%;
+    font-size: 1.1rem;
     cursor: pointer;
     border-radius: 5px;
     margin-top: 10px;
@@ -61,4 +64,5 @@ button:hover {
     font-weight: bold;
     color: red;
     text-align: right;
+    margin-top: 20px;
 }

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cursos gratis Dev: descubre plataformas con certificados 100% gratuitos para aprender desarrollo web, programación, Python, React, backend y más." />
+  <meta property="og:title" content="Cursos gratis Dev" />
+  <meta property="og:description" content="Plataformas con certificado 100% gratuito para aprender desarrollo web y programación." />
+  <meta property="og:type" content="website" />
+  <title>Cursos gratis Dev</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --text-3xl: clamp(2.5rem, 1rem + 4vw, 5rem);
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+      --color-bg: #f7f6f2;
+      --color-surface: #fbfaf7;
+      --color-surface-2: #f1efe9;
+      --color-surface-offset: #ece8e1;
+      --color-border: #d7d2c9;
+      --color-divider: #e1ddd6;
+      --color-text: #171717;
+      --color-text-muted: #5f5b56;
+      --color-text-faint: #8f8a84;
+      --color-text-inverse: #f9f8f4;
+      --color-primary: #0b6b6f;
+      --color-primary-hover: #09565a;
+      --color-primary-active: #073f42;
+      --color-primary-highlight: #d3e6e4;
+      --color-blue: #1a4fff;
+      --color-blue-highlight: #dfe6ff;
+      --color-success: #2f7a44;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px oklch(0.2 0.01 80 / 0.06);
+      --shadow-md: 0 10px 30px oklch(0.2 0.01 80 / 0.09);
+      --shadow-lg: 0 20px 60px oklch(0.2 0.01 80 / 0.14);
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --font-display: 'Clash Display', 'Inter', sans-serif;
+      --font-body: 'Satoshi', 'Inter', sans-serif;
+      --content-default: 1180px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        --color-bg: #121313;
+        --color-surface: #171919;
+        --color-surface-2: #1d2020;
+        --color-surface-offset: #232727;
+        --color-border: #313635;
+        --color-divider: #2b2f2f;
+        --color-text: #eef1ef;
+        --color-text-muted: #b8beb9;
+        --color-text-faint: #7e8680;
+        --color-text-inverse: #101111;
+        --color-primary: #53a6ac;
+        --color-primary-hover: #6cc1c7;
+        --color-primary-active: #82d5da;
+        --color-primary-highlight: #203234;
+        --color-blue: #8ba3ff;
+        --color-blue-highlight: #1d2441;
+        --color-success: #74c58c;
+        --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.22);
+        --shadow-md: 0 10px 30px oklch(0 0 0 / 0.28);
+        --shadow-lg: 0 20px 60px oklch(0 0 0 / 0.38);
+      }
+    }
+    [data-theme="dark"] {
+      --color-bg: #121313;
+      --color-surface: #171919;
+      --color-surface-2: #1d2020;
+      --color-surface-offset: #232727;
+      --color-border: #313635;
+      --color-divider: #2b2f2f;
+      --color-text: #eef1ef;
+      --color-text-muted: #b8beb9;
+      --color-text-faint: #7e8680;
+      --color-text-inverse: #101111;
+      --color-primary: #53a6ac;
+      --color-primary-hover: #6cc1c7;
+      --color-primary-active: #82d5da;
+      --color-primary-highlight: #203234;
+      --color-blue: #8ba3ff;
+      --color-blue-highlight: #1d2441;
+      --color-success: #74c58c;
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.22);
+      --shadow-md: 0 10px 30px oklch(0 0 0 / 0.28);
+      --shadow-lg: 0 20px 60px oklch(0 0 0 / 0.38);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background:
+        radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 18%, transparent) 0, transparent 28%),
+        radial-gradient(circle at 0% 16%, color-mix(in oklab, var(--color-blue) 12%, transparent) 0, transparent 22%),
+        var(--color-bg);
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; border: 0; background: none; color: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+    .skip-link {
+      position: absolute; left: var(--space-4); top: -3rem; z-index: 100;
+      background: var(--color-primary); color: var(--color-text-inverse);
+      padding: var(--space-3) var(--space-4); border-radius: var(--radius-full);
+    }
+    .skip-link:focus { top: var(--space-4); }
+    .container { width: min(calc(100% - 2rem), var(--content-default)); margin-inline: auto; }
+    .section { padding-block: clamp(var(--space-12), 8vw, var(--space-24)); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 0.45rem 0.8rem; border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 10%, var(--color-surface));
+      border: 1px solid color-mix(in oklab, var(--color-primary) 22%, var(--color-border));
+      color: var(--color-primary); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .header {
+      position: sticky; top: 0; z-index: 40;
+      background: color-mix(in oklab, var(--color-bg) 82%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: 5rem;
+    }
+    .brand { display: inline-flex; align-items: center; gap: var(--space-3); font-weight: 900; }
+    .brand-mark {
+      width: 2.75rem; height: 2.75rem; border-radius: 0.9rem; display: grid; place-items: center; color: var(--color-text-inverse);
+      background: linear-gradient(135deg, var(--color-primary), var(--color-blue)); box-shadow: var(--shadow-md);
+    }
+    .brand-name { display: flex; flex-direction: column; line-height: 1; }
+    .brand-name strong { font-size: var(--text-sm); }
+    .brand-name span { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 500; }
+    .nav-links { display: none; align-items: center; gap: var(--space-6); color: var(--color-text-muted); font-size: var(--text-sm); }
+    .nav-actions { display: flex; align-items: center; gap: var(--space-3); }
+    .theme-toggle {
+      min-width: 44px; min-height: 44px; border-radius: var(--radius-full); border: 1px solid color-mix(in oklab, var(--color-text) 12%, transparent);
+      background: color-mix(in oklab, var(--color-surface) 88%, transparent); display: grid; place-items: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: 48px; padding: 0.9rem 1.2rem;
+      border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 700;
+      transition: transform var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--color-primary); color: var(--color-text-inverse); box-shadow: var(--shadow-md); }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary {
+      background: color-mix(in oklab, var(--color-surface) 70%, transparent);
+      border: 1px solid color-mix(in oklab, var(--color-text) 12%, transparent);
+    }
+    .hero { padding-block: clamp(var(--space-12), 8vw, var(--space-24)); }
+    .hero-grid { display: grid; gap: var(--space-8); align-items: center; }
+    .hero-copy h1 {
+      font-family: var(--font-display); font-size: clamp(2.7rem, 5vw, 5.5rem); line-height: 0.95; letter-spacing: -0.04em; max-width: 10ch; margin-top: var(--space-5);
+    }
+    .hero-copy p { margin-top: var(--space-5); color: var(--color-text-muted); max-width: 60ch; font-size: clamp(1rem, 0.95rem + 0.35vw, 1.2rem); }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+    .hero-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin-top: var(--space-8); }
+    .metric {
+      padding: var(--space-4); border-radius: var(--radius-lg); background: color-mix(in oklab, var(--color-surface) 92%, transparent);
+      border: 1px solid color-mix(in oklab, var(--color-text) 9%, transparent);
+    }
+    .metric strong { display: block; font-size: var(--text-lg); font-weight: 900; }
+    .metric span { color: var(--color-text-muted); font-size: var(--text-xs); }
+    .hero-visual {
+      position: relative; isolation: isolate; background: linear-gradient(180deg, color-mix(in oklab, var(--color-surface) 88%, transparent), color-mix(in oklab, var(--color-surface-2) 95%, transparent));
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent); border-radius: calc(var(--radius-xl) + 0.5rem);
+      box-shadow: var(--shadow-lg); padding: clamp(var(--space-5), 4vw, var(--space-8)); overflow: hidden;
+    }
+    .hero-visual::before, .hero-visual::after {
+      content: ""; position: absolute; border-radius: 999px; filter: blur(20px); z-index: -1;
+    }
+    .hero-visual::before { width: 220px; height: 220px; background: color-mix(in oklab, var(--color-primary) 20%, transparent); top: -60px; right: -30px; }
+    .hero-visual::after { width: 160px; height: 160px; background: color-mix(in oklab, var(--color-blue) 18%, transparent); bottom: 10%; left: -30px; }
+    .dashboard {
+      display: grid; gap: var(--space-4);
+    }
+    .dashboard-card {
+      border-radius: var(--radius-lg); border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      background: color-mix(in oklab, var(--color-surface) 90%, transparent); padding: var(--space-5);
+    }
+    .dashboard-card h3 { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-3); }
+    .dashboard-card strong { font-size: clamp(2rem, 4vw, 3rem); line-height: 1; font-family: var(--font-display); }
+    .mini-list { list-style: none; display: grid; gap: var(--space-3); }
+    .mini-list li {
+      display: flex; justify-content: space-between; gap: var(--space-3); padding-bottom: var(--space-3);
+      border-bottom: 1px solid color-mix(in oklab, var(--color-text) 8%, transparent); font-size: var(--text-sm);
+    }
+    .mini-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .section-head { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-8); }
+    .section-head h2 { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1; letter-spacing: -0.03em; max-width: 13ch; }
+    .section-head p { max-width: 66ch; color: var(--color-text-muted); }
+    .card {
+      background: color-mix(in oklab, var(--color-surface) 96%, transparent); border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: clamp(var(--space-5), 4vw, var(--space-8));
+    }
+    .card h3 { font-size: var(--text-lg); line-height: 1.15; margin-top: var(--space-4); }
+    .card p { margin-top: var(--space-3); color: var(--color-text-muted); }
+    .icon-box {
+      width: 3rem; height: 3rem; border-radius: 1rem; display: grid; place-items: center;
+      background: color-mix(in oklab, var(--color-primary) 12%, var(--color-surface)); color: var(--color-primary);
+    }
+    .grid-3, .grid-2 { display: grid; gap: var(--space-4); }
+    .badge {
+      display: inline-flex; align-items: center; gap: var(--space-2); padding: 0.42rem 0.74rem; border-radius: var(--radius-full);
+      font-size: var(--text-xs); font-weight: 700; background: color-mix(in oklab, var(--color-success) 12%, var(--color-surface)); color: var(--color-success);
+    }
+    .table-wrap {
+      overflow-x: auto; border-radius: calc(var(--radius-xl) + 0.25rem); border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      background: color-mix(in oklab, var(--color-surface) 96%, transparent); box-shadow: var(--shadow-md);
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 920px; }
+    th, td { padding: 1rem 1rem; text-align: left; vertical-align: top; }
+    thead th {
+      font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted);
+      background: color-mix(in oklab, var(--color-surface-2) 94%, transparent); border-bottom: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+    }
+    tbody tr + tr td { border-top: 1px solid color-mix(in oklab, var(--color-text) 8%, transparent); }
+    td p { color: var(--color-text-muted); font-size: var(--text-sm); }
+    .platform-link { font-weight: 800; color: var(--color-text); }
+    .stack-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .stack-tags span {
+      padding: 0.38rem 0.65rem; border-radius: var(--radius-full); background: color-mix(in oklab, var(--color-blue) 10%, var(--color-surface)); color: var(--color-blue); font-size: var(--text-xs); font-weight: 700;
+    }
+    .featured-callout {
+      display: grid; gap: var(--space-6); background: linear-gradient(145deg, color-mix(in oklab, var(--color-primary) 12%, var(--color-surface)), color-mix(in oklab, var(--color-blue) 8%, var(--color-surface)));
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent); border-radius: calc(var(--radius-xl) + 0.25rem);
+      padding: clamp(var(--space-6), 5vw, var(--space-10)); box-shadow: var(--shadow-md);
+    }
+    .featured-callout ul { list-style: none; display: grid; gap: var(--space-3); }
+    .featured-callout li { display: flex; gap: var(--space-3); align-items: flex-start; color: var(--color-text-muted); }
+    .check { width: 1.6rem; height: 1.6rem; border-radius: 999px; flex: 0 0 auto; margin-top: 0.15rem; background: var(--color-primary); color: var(--color-text-inverse); display: grid; place-items: center; font-weight: 900; }
+    .quote { font-size: clamp(1.1rem, 1rem + 0.6vw, 1.5rem); line-height: 1.4; color: var(--color-text); }
+    .quote-author { margin-top: var(--space-4); color: var(--color-text-muted); font-size: var(--text-sm); }
+    .cta-box {
+      text-align: left; background: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 18%, var(--color-surface)), color-mix(in oklab, var(--color-blue) 12%, var(--color-surface)));
+      border-radius: calc(var(--radius-xl) + 0.5rem); padding: clamp(var(--space-8), 6vw, var(--space-12));
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent); box-shadow: var(--shadow-lg);
+    }
+    .cta-box h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 4rem); line-height: 0.98; max-width: 12ch; letter-spacing: -0.04em; }
+    .cta-box p { margin-top: var(--space-4); color: var(--color-text-muted); max-width: 58ch; }
+    .cta-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+    .footer { padding-block: var(--space-8) var(--space-12); color: var(--color-text-muted); }
+    .footer-inner { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-6); border-top: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent); }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 700ms ease, transform 700ms ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @media (min-width: 780px) {
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-inner { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    @media (min-width: 980px) {
+      .nav-links { display: flex; }
+      .hero-grid { grid-template-columns: minmax(0, 1.06fr) minmax(420px, 0.94fr); }
+      .section-head { flex-direction: row; justify-content: space-between; align-items: end; }
+      .section-head p { text-align: right; }
+      .dashboard { grid-template-columns: 1.1fr 0.9fr; }
+      .featured-callout { grid-template-columns: 1fr 1fr; align-items: center; }
+    }
+    @media (max-width: 719px) {
+      .hero-metrics { grid-template-columns: 1fr; }
+      .nav-actions .btn-secondary { display: none; }
+      .cta-box h2, .section-head h2 { max-width: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="Inicio Cursos gratis Dev">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 7 3 12l5 5"></path><path d="m16 7 5 5-5 5"></path><path d="M14 4 10 20"></path>
+          </svg>
+        </span>
+        <span class="brand-name">
+          <strong>Cursos gratis Dev</strong>
+          <span>Plataformas con certificado gratuito</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#plataformas">Plataformas</a>
+        <a href="#destacados">Destacados</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar tema"></button>
+        <a class="btn btn-secondary" href="#plataformas">Ver listado</a>
+        <a class="btn btn-primary" href="#cta">Empezar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Certificados sin coste</span>
+          <h1>Aprende desarrollo web gratis y consigue certificados reales.</h1>
+          <p>Hemos reunido plataformas que ofrecen formación en programación, frontend, backend, Python, React, bases de datos y más, con opción de certificado 100% gratuito para completar tu aprendizaje con pruebas visibles de progreso.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#plataformas">Explorar plataformas</a>
+            <a class="btn btn-secondary" href="#destacados">Ver recomendadas</a>
+          </div>
+          <div class="hero-metrics" aria-label="Métricas destacadas">
+            <div class="metric"><strong>10</strong><span>Plataformas verificadas</span></div>
+            <div class="metric"><strong>100% gratis</strong><span>Certificados incluidos en el listado</span></div>
+            <div class="metric"><strong>Web + CS</strong><span>Desde HTML hasta computer science</span></div>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="dashboard">
+            <div class="dashboard-card">
+              <h3>Top stacks disponibles</h3>
+              <strong>HTML · CSS · JS</strong>
+              <p style="margin-top: var(--space-3); color: var(--color-text-muted);">También encontrarás React, Python, Node.js, SQL, Linux, MongoDB, TypeScript, IA y ciberseguridad.</p>
+            </div>
+            <div class="dashboard-card">
+              <h3>Certificación gratuita</h3>
+              <ul class="mini-list">
+                <li><span>freeCodeCamp</span><span>✅ Sí</span></li>
+                <li><span>CS50x Harvard</span><span>✅ Sí</span></li>
+                <li><span>Full Stack Open</span><span>✅ Sí</span></li>
+                <li><span>Cisco Skills For All</span><span>✅ Sí</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="destacados">
+      <div class="container">
+        <div class="featured-callout reveal">
+          <div>
+            <span class="eyebrow">Plataformas destacadas</span>
+            <h2 style="font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1; letter-spacing: -0.03em;">Tres nombres muy potentes para empezar bien.</h2>
+          </div>
+          <ul>
+            <li><span class="check">✓</span><span><strong>freeCodeCamp</strong> ofrece múltiples certificaciones gratuitas en áreas como Responsive Web Design, JavaScript, Front End Libraries, Back End Development and APIs y Python.</span></li>
+            <li><span class="check">✓</span><span><strong>CS50x</strong> se puede cursar gratis vía OpenCourseWare y cubre C, Python, SQL y tecnologías web, terminando con proyecto final.</span></li>
+            <li><span class="check">✓</span><span><strong>Full Stack Open</strong> es gratuito y permite obtener certificado universitario sin coste, con foco en React, Node.js, MongoDB y TypeScript.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="plataformas">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Listado completo</span>
+            <h2>Plataformas con certificado 100% gratuito.</h2>
+          </div>
+          <p>Este directorio visual usa el contenido que has pasado y lo organiza en un formato más claro para comparar tecnologías, tipo de certificado y acceso directo.</p>
+        </div>
+
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>Plataforma</th>
+                <th>Certificado gratis</th>
+                <th>Tecnologías</th>
+                <th>Detalle</th>
+                <th>URL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a class="platform-link" href="https://www.freecodecamp.org/learn?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">freeCodeCamp</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span><span>Python</span><span>APIs</span><span>Data Science</span></div></td>
+                <td><p>Certificados oficiales gratuitos.</p></td>
+                <td><a class="platform-link" href="https://www.freecodecamp.org/learn?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://cs50.harvard.edu/x/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">CS50x Harvard</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>Computer Science</span><span>C</span><span>Python</span><span>SQL</span><span>Web</span></div></td>
+                <td><p>Certificado gratuito desde Harvard OpenCourseWare.</p></td>
+                <td><a class="platform-link" href="https://cs50.harvard.edu/x/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://cs50.harvard.edu/python/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">CS50P Harvard Python</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>Python</span></div></td>
+                <td><p>Certificado gratis al completar.</p></td>
+                <td><a class="platform-link" href="https://cs50.harvard.edu/python/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://fullstackopen.com/en/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Full Stack Open University of Helsinki</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>React</span><span>Node.js</span><span>MongoDB</span><span>TypeScript</span></div></td>
+                <td><p>Certificado gratuito universitario.</p></td>
+                <td><a class="platform-link" href="https://fullstackopen.com/en/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://www.open.edu/openlearn/free-courses/full-catalogue?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Open University OpenLearn</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>Computación</span><span>Programación</span></div></td>
+                <td><p>Certificado de finalización gratis.</p></td>
+                <td><a class="platform-link" href="https://www.open.edu/openlearn/free-courses/full-catalogue?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://www.sololearn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">SoloLearn</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>Python</span><span>JavaScript</span><span>Java</span><span>SQL</span></div></td>
+                <td><p>Certificados gratuitos básicos.</p></td>
+                <td><a class="platform-link" href="https://www.sololearn.com/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://www.hackerrank.com/skills-directory?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">HackerRank Skills Certification Practice</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>SQL</span><span>JavaScript</span><span>Python</span><span>Problem Solving</span></div></td>
+                <td><p>Certificados gratuitos de skills.</p></td>
+                <td><a class="platform-link" href="https://www.hackerrank.com/skills-directory?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://www.mygreatlearning.com/academy?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Great Learning Academy</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>Python</span><span>Web Dev</span><span>IA</span><span>Data Science</span></div></td>
+                <td><p>Certificados gratis.</p></td>
+                <td><a class="platform-link" href="https://www.mygreatlearning.com/academy?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://www.simplilearn.com/skillup-free-online-courses?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Simplilearn SkillUp</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>Frontend</span><span>Backend</span><span>Cloud</span><span>Python</span></div></td>
+                <td><p>Certificados gratis.</p></td>
+                <td><a class="platform-link" href="https://www.simplilearn.com/skillup-free-online-courses?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+              <tr>
+                <td><a class="platform-link" href="https://skillsforall.com/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Cisco Networking Academy Skills For All</a></td>
+                <td><span class="badge">✅ Sí</span></td>
+                <td><div class="stack-tags"><span>Python</span><span>Linux</span><span>Ciberseguridad</span></div></td>
+                <td><p>Certificados oficiales Cisco.</p></td>
+                <td><a class="platform-link" href="https://skillsforall.com/?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer">Ir a la plataforma</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="beneficios">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Qué aporta</span>
+            <h2>Una landing más útil y más orientada a conversión.</h2>
+          </div>
+          <p>En esta versión, el contenido principal ya no es genérico: la propuesta gira alrededor del listado real de plataformas, lo que hace que la página tenga más valor práctico y más credibilidad inmediata.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card reveal">
+            <div class="icon-box" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+            </div>
+            <h3>Comparación clara</h3>
+            <p>La tabla permite ver de un vistazo qué estudias, si hay certificado gratis y dónde entrar directamente.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-box" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path><path d="M5 8.5 12 3l7 5.5"></path><path d="M5 15.5 12 21l7-5.5"></path></svg>
+            </div>
+            <h3>Enfoque realista</h3>
+            <p>Combina plataformas para principiantes con opciones más profundas como Harvard o Helsinki.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-box" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            </div>
+            <h3>Más confianza</h3>
+            <p>La presencia de plataformas reconocidas transmite valor desde el primer scroll.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">FAQ</span>
+            <h2>Dudas habituales sobre esta selección.</h2>
+          </div>
+          <p>He mantenido el tono de landing page, pero usando tu contenido como base principal para que el sitio se sienta más útil y específico.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card reveal">
+            <h3>¿Todos los enlaces van a la plataforma oficial?</h3>
+            <p>Sí. Cada botón abre la URL que has proporcionado para que puedas usar esta landing como directorio visual directo.</p>
+          </article>
+          <article class="card reveal">
+            <h3>¿Se puede ampliar con filtros o buscador?</h3>
+            <p>Sí. Esta base visual permite añadir luego filtros por stack, nivel, certificado o tipo de tecnología.</p>
+          </article>
+          <article class="card reveal">
+            <h3>¿Se puede convertir en un proyecto más SEO?</h3>
+            <p>También. Se podrían crear fichas individuales por plataforma, categorías y bloques de contenido editorial.</p>
+          </article>
+          <article class="card reveal">
+            <h3>¿Es responsive?</h3>
+            <p>Sí. La maquetación se adapta bien a móvil, tablet y escritorio, y la tabla tiene scroll horizontal controlado en pantallas pequeñas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="cta-box reveal">
+          <span class="eyebrow">Empieza hoy</span>
+          <h2>Elige una plataforma, consigue tu certificado y empieza a construir.</h2>
+          <p>Esta versión de la landing ya está orientada a mostrar recursos reales. Es una base sólida si quieres publicarla tal cual o evolucionarla hacia un directorio más completo.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="#plataformas">Ver plataformas</a>
+            <a class="btn btn-secondary" href="#inicio">Subir arriba</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2026 Cursos gratis Dev. Landing enfocada en plataformas con certificado gratuito.</p>
+      <p>Responsive · Modo claro/oscuro · Enlaces oficiales</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle]');
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      function renderIcon(mode) {
+        toggle.innerHTML = mode === 'dark'
+          ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2"></path><path d="M12 21v2"></path><path d="M4.22 4.22l1.42 1.42"></path><path d="M18.36 18.36l1.42 1.42"></path><path d="M1 12h2"></path><path d="M21 12h2"></path><path d="M4.22 19.78l1.42-1.42"></path><path d="M18.36 5.64l1.42-1.42"></path></svg>'
+          : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+        toggle.setAttribute('aria-label', mode === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+      }
+      root.setAttribute('data-theme', theme);
+      renderIcon(theme);
+      toggle.addEventListener('click', function () {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        renderIcon(theme);
+      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+      }, { threshold: 0.14 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }());
+  </script>
+</body>
+</html>

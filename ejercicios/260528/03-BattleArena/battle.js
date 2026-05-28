@@ -18,27 +18,24 @@ const TYPE_CHART = {
   fighting: { normal: 2, ice: 2, dark: 2 }
 };
 
-const EVOLUTIONS = {
-  charmander: { level: 16, evolved: 'charmeleon', second: 'charizard', secondLevel: 36 },
-  bulbasaur: { level: 16, evolved: 'ivysaur', second: 'venusaur', secondLevel: 32 },
-  squirtle: { level: 16, evolved: 'wartortle', second: 'blastoise', secondLevel: 36 },
-  chikorita: { level: 16, evolved: 'bayleef', second: ' Meganium', secondLevel: 32 },
-  cyndaquil: { level: 16, evolved: 'quilava', second: 'typhlosion', secondLevel: 36 },
-  totodile: { level: 16, evolved: 'croconaw', second: 'feraligatr', secondLevel: 30 },
-  treecko: { level: 16, evolved: 'grovyle', second: 'sceptile', secondLevel: 36 },
-  torchic: { level: 16, evolved: 'combusken', second: 'blaziken', secondLevel: 36 },
-  mudkip: { level: 16, evolved: 'marshtomp', second: 'swampert', secondLevel: 36 }
-};
-
 const DIFFICULTY_MULTIPLIERS = {
   easy: { enemyAttack: 0.7, scoreMultiplier: 1 },
   medium: { enemyAttack: 1, scoreMultiplier: 1.5 },
   hard: { enemyAttack: 1.3, scoreMultiplier: 2.5 }
 };
 
+const POKEMON_LIST = [
+  'bulbasaur', 'charmander', 'squirtle', 'pikachu', 'raichu', 'charizard', 'venusaur', 'blastoise', 'gengar',
+  'chikorita', 'cyndaquil', 'totodile', 'feraligatr', 'typhlosion', 'bayleef',
+  'treecko', 'torchic', 'mudkip', 'sceptile', 'blaziken', 'swampert', 'turtwig', 'chimchar', 'piplup',
+  'grotle', 'monferno', 'prinplup', 'torterra', 'infernape', 'empoleon', 'snivy', 'tepig', 'oshawott'
+];
+
+const PAGINATION_SIZE = 8;
+
 let gameState = {
   difficulty: 'medium',
-  selectedPokemon: 'charmander',
+  selectedPokemon: POKEMON_LIST[0],
   playerPokemon: null,
   enemyPokemon: null,
   playerHP: 0,
@@ -51,7 +48,8 @@ let gameState = {
   highScore: parseInt(localStorage.getItem('pokemonHighScore')) || 0,
   isPlayerTurn: true,
   battleActive: false,
-  selectedMoveIndex: 0
+  selectedMoveIndex: 0,
+  currentPage: 1
 };
 
 const titleScreen = document.getElementById('title-screen');
@@ -63,9 +61,21 @@ const startBtn = document.getElementById('start-btn');
 const attackBtn = document.getElementById('attack-btn');
 const moveOptions = document.querySelectorAll('.move-option');
 const battleMessages = document.getElementById('battle-messages');
+const prevPageBtn = document.getElementById('prev-page');
+const nextPageBtn = document.getElementById('next-page');
+const currentPageSpan = document.getElementById('current-page');
+const totalPagesSpan = document.getElementById('total-pages');
+
+function getPokemonSpriteUrl(pokemonName) {
+  const id = pokemonName.toLowerCase();
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+}
 
 function init() {
   document.getElementById('highscore').textContent = gameState.highScore;
+  
+  const totalPages = Math.ceil(POKEMON_LIST.length / PAGINATION_SIZE);
+  totalPagesSpan.textContent = totalPages;
   
   difficultyBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -75,12 +85,21 @@ function init() {
     });
   });
   
-  starterGrid.querySelectorAll('.starter-card').forEach(card => {
-    card.addEventListener('click', () => {
-      starterGrid.querySelectorAll('.starter-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      gameState.selectedPokemon = card.dataset.pokemon;
-    });
+  renderPokemonPage();
+  
+  prevPageBtn.addEventListener('click', () => {
+    if (gameState.currentPage > 1) {
+      gameState.currentPage--;
+      renderPokemonPage();
+    }
+  });
+  
+  nextPageBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(POKEMON_LIST.length / PAGINATION_SIZE);
+    if (gameState.currentPage < totalPages) {
+      gameState.currentPage++;
+      renderPokemonPage();
+    }
   });
   
   startBtn.addEventListener('click', startGame);
@@ -110,50 +129,119 @@ function init() {
   document.getElementById('return-title-btn').addEventListener('click', () => location.reload());
 }
 
+function renderPokemonPage() {
+  starterGrid.innerHTML = '';
+  
+  const startIdx = (gameState.currentPage - 1) * PAGINATION_SIZE;
+  const endIdx = Math.min(startIdx + PAGINATION_SIZE, POKEMON_LIST.length);
+  const pagePokemon = POKEMON_LIST.slice(startIdx, endIdx);
+  
+  pagePokemon.forEach((pokemonName) => {
+    const card = document.createElement('div');
+    card.className = 'starter-card';
+    if (pokemonName === gameState.selectedPokemon) {
+      card.classList.add('selected');
+    }
+    
+    const spriteUrl = getPokemonSpriteUrl(pokemonName);
+    const type = getFirstType(pokemonName);
+    
+    card.innerHTML = `
+      <img src="${spriteUrl}" alt="${pokemonName}" loading="lazy" class="sprite-animated" />
+      <div class="name">${pokemonName.toUpperCase()}</div>
+      <div class="type tipo-${type}">${type.toUpperCase()}</div>
+    `;
+    
+    card.addEventListener('click', () => {
+      starterGrid.querySelectorAll('.starter-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      gameState.selectedPokemon = pokemonName;
+      startBtn.textContent = `¡COMENZAR CON ${pokemonName.toUpperCase()}!`;
+    });
+    
+    starterGrid.appendChild(card);
+  });
+  
+  currentPageSpan.textContent = gameState.currentPage;
+  
+  const totalPages = Math.ceil(POKEMON_LIST.length / PAGINATION_SIZE);
+  prevPageBtn.disabled = gameState.currentPage <= 1;
+  nextPageBtn.disabled = gameState.currentPage >= totalPages;
+}
+
+function getFirstType(name) {
+  const fireTypes = ['charmander', 'charizard', 'torchic', 'chimchar', 'tepig'];
+  const waterTypes = ['squirtle', 'blastoise', 'mudkip', 'piplup', 'oshawott'];
+  const grassTypes = ['bulbasaur', 'venusaur', 'chikorita', 'treecko', 'turtwig', 'snivy'];
+  
+  const lower = name.toLowerCase();
+  if (fireTypes.includes(lower)) return 'fire';
+  if (waterTypes.includes(lower)) return 'water';
+  if (grassTypes.includes(lower)) return 'grass';
+  return 'normal';
+}
+
 async function startGame() {
   startBtn.disabled = true;
   startBtn.textContent = 'Cargando...';
   
-  const playerResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${gameState.selectedPokemon}`);
-  gameState.playerPokemon = await playerResponse.json();
-  
-  const pool = ['pikachu', 'charmander', 'bulbasaur', 'squirtle', 'charizard', 'venusaur', 'blastoise', 'raichu', 'gengar'];
-  const enemyName = pool[Math.floor(Math.random() * pool.length)];
-  const enemyResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${enemyName}`);
-  gameState.enemyPokemon = await enemyResponse.json();
-  
-  const hpStat = gameState.playerPokemon.stats.find(s => s.stat.name === 'hp');
-  gameState.maxPlayerHP = hpStat.base_stat + 50;
-  gameState.playerHP = gameState.maxPlayerHP;
-  
-  const enemyHpStat = gameState.enemyPokemon.stats.find(s => s.stat.name === 'hp');
-  gameState.maxEnemyHP = enemyHpStat.base_stat + 50;
-  gameState.enemyHP = gameState.maxEnemyHP;
-  
-  gameState.battleActive = true;
-  gameState.isPlayerTurn = true;
-  gameState.score = 0;
-  
-  titleScreen.classList.add('hidden');
-  battleScreen.classList.remove('hidden');
-  
-  setupBattleUI();
-  addMessage(`¡${gameState.playerPokemon.name.toUpperCase()} vs ${gameState.enemyPokemon.name.toUpperCase()}!`);
-  addMessage(`¡Batalla iniciada! Usa ↑ ↓ para elegir, CLICK en ATTACK`);
+  try {
+    const playerResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${gameState.selectedPokemon}`);
+    if (!playerResponse.ok) throw new Error('Pokémon no encontrado');
+    gameState.playerPokemon = await playerResponse.json();
+    
+    const pool = ['pikachu', 'charmander', 'bulbasaur', 'squirtle', 'charizard', 'venusaur', 'blastoise', 'raichu', 'gengar'];
+    const enemyName = pool[Math.floor(Math.random() * pool.length)];
+    const enemyResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${enemyName}`);
+    gameState.enemyPokemon = await enemyResponse.json();
+    
+    const hpStat = gameState.playerPokemon.stats.find(s => s.stat.name === 'hp');
+    gameState.maxPlayerHP = hpStat.base_stat + 50;
+    gameState.playerHP = gameState.maxPlayerHP;
+    
+    const enemyHpStat = gameState.enemyPokemon.stats.find(s => s.stat.name === 'hp');
+    gameState.maxEnemyHP = enemyHpStat.base_stat + 50;
+    gameState.enemyHP = gameState.maxEnemyHP;
+    
+    gameState.battleActive = true;
+    gameState.isPlayerTurn = true;
+    gameState.score = 0;
+    
+    titleScreen.classList.add('hidden');
+    battleScreen.classList.remove('hidden');
+    
+    setupBattleUI();
+    addMessage(`¡${gameState.playerPokemon.name.toUpperCase()} vs ${gameState.enemyPokemon.name.toUpperCase()}!`);
+    addMessage(`¡Batalla iniciada! Usa ↑ ↓ para elegir, CLICK en ATTACK`);
+  } catch (err) {
+    alert('Error: Pokémon no encontrado. Intenta con otro.');
+    startBtn.disabled = false;
+    startBtn.textContent = '¡COMENZAR BATALLA!';
+  }
 }
 
 function setupBattleUI() {
-  const playerAnimUrl = gameState.playerPokemon.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default || gameState.playerPokemon.sprites.front_default;
-  const enemyAnimUrl = gameState.enemyPokemon.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default || gameState.enemyPokemon.sprites.front_default;
+  const playerSpriteUrl = getPokemonSpriteUrl(gameState.playerPokemon.name);
+  const enemySpriteUrl = getPokemonSpriteUrl(gameState.enemyPokemon.name);
+  
+  const playerSprite = document.getElementById('player-sprite');
+  playerSprite.src = playerSpriteUrl;
+  playerSprite.classList.remove('battle-enter');
+  void playerSprite.offsetWidth;
+  playerSprite.classList.add('battle-enter');
+  
+  const enemySprite = document.getElementById('enemy-sprite');
+  enemySprite.src = enemySpriteUrl;
+  enemySprite.classList.remove('battle-enter');
+  void enemySprite.offsetWidth;
+  enemySprite.classList.add('battle-enter');
   
   document.getElementById('player-name').textContent = gameState.playerPokemon.name.toUpperCase();
-  document.getElementById('player-sprite').src = playerAnimUrl;
   document.getElementById('player-types').innerHTML = gameState.playerPokemon.types.map(t => `<span class="tipo-${t.type.name}">${t.type.name}</span>`).join('');
   document.getElementById('player-level').textContent = gameState.playerLevel;
   document.getElementById('player-lvl-display').textContent = gameState.playerLevel;
   
   document.getElementById('enemy-name').textContent = gameState.enemyPokemon.name.toUpperCase();
-  document.getElementById('enemy-sprite').src = enemyAnimUrl;
   document.getElementById('enemy-types').innerHTML = gameState.enemyPokemon.types.map(t => `<span class="tipo-${t.type.name}">${t.type.name}</span>`).join('');
   document.getElementById('enemy-level').textContent = gameState.enemyLevel;
   

@@ -68,6 +68,7 @@ h2 {
   font-size: 0.6rem;
   color: var(--light);
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .difficulty-btn.easy { background: var(--easy); }
@@ -78,6 +79,8 @@ h2 {
   box-shadow: 0 0 15px var(--warning);
   transform: scale(1.1);
 }
+
+.difficulty-btn:hover { transform: translateY(-2px); }
 
 .starter-pokemon {
   display: flex;
@@ -95,7 +98,22 @@ h2 {
   border: 3px solid var(--primary);
   min-width: 120px;
   transition: transform 0.2s;
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
 }
+
+.starter-card:nth-child(1) { animation-delay: 0.05s; }
+.starter-card:nth-child(2) { animation-delay: 0.1s; }
+.starter-card:nth-child(3) { animation-delay: 0.15s; }
+.starter-card:nth-child(4) { animation-delay: 0.2s; }
+.starter-card:nth-child(5) { animation-delay: 0.25s; }
+.starter-card:nth-child(6) { animation-delay: 0.3s; }
+.starter-card:nth-child(7) { animation-delay: 0.35s; }
+.starter-card:nth-child(8) { animation-delay: 0.4s; }
+.starter-card:nth-child(9) { animation-delay: 0.45s; }
+.starter-card:nth-child(10) { animation-delay: 0.5s; }
+.starter-card:nth-child(11) { animation-delay: 0.55s; }
+.starter-card:nth-child(12) { animation-delay: 0.6s; }
 
 .starter-card:hover, .starter-card.selected {
   transform: scale(1.05);
@@ -107,6 +125,22 @@ h2 {
   width: 80px;
   height: 80px;
   object-fit: contain;
+  animation: fadeInUp 0.6s ease-out 0.1s forwards;
+  opacity: 0;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.starter-card:hover img {
+  animation: glow 1.5s ease-in-out infinite;
+  transform: scale(1.05);
+}
+
+.starter-card.selected {
+  animation: pulse-selected 1.5s ease-in-out infinite;
+}
+
+.starter-card.selected img {
+  filter: drop-shadow(0 0 10px var(--warning)) drop-shadow(0 0 20px var(--warning));
 }
 
 .starter-card .name {
@@ -151,9 +185,11 @@ h2 {
   font-size: 0.75rem;
   cursor: pointer;
   box-shadow: 0 5px 0 #2a9d4a;
+  transition: transform 0.2s;
 }
 
 #start-btn:hover { transform: translateY(-2px); }
+#start-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 .battle-stats {
   display: flex;
@@ -304,6 +340,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background 0.2s;
 }
 
 .move-option:hover { background: rgba(42, 117, 187, 0.3); }
@@ -338,6 +375,7 @@ h2 {
   background: linear-gradient(180deg, var(--danger), #b00f0f);
   cursor: pointer;
   box-shadow: 0 5px 0 #8b0000;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .attackButton:hover:not(:disabled) {
@@ -345,9 +383,16 @@ h2 {
   box-shadow: 0 7px 0 #8b0000;
 }
 
+.attackButton:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 #8b0000;
+}
+
 .attackButton:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 0 #8b0000;
 }
 
 .final-score {
@@ -367,6 +412,7 @@ h2 {
   font-size: 0.7rem;
   cursor: pointer;
   margin: 8px;
+  transition: transform 0.2s;
 }
 
 #return-title-btn {
@@ -379,6 +425,95 @@ h2 {
   color: var(--light);
   cursor: pointer;
   margin: 8px;
+  transition: transform 0.2s;
+}
+
+#play-again-btn:hover, #return-title-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Paginación */
+.pagination-info {
+  font-size: 0.8rem;
+  color: var(--warning);
+  margin: 15px 0;
+  font-family: "Press Start 2P", cursive;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.pagination-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--primary), #1a5fa0);
+  color: var(--light);
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.65rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #1a5fa0;
+  transition: transform 0.2s;
+  animation: fadeInUp 0.4s ease-out;
+  opacity: 0;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #1a5fa0;
+}
+
+.pagination-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1a5fa0;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 0 #1a5fa0;
+}
+
+#prev-page { animation-delay: 0.3s; }
+#next-page { animation-delay: 0.35s; }
+
+/* ANIMACIONES DE ENTRADA Y EFECTOS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes battleEnter {
+  0% { opacity: 0; transform: scale(0.5); filter: blur(10px); }
+  50% { opacity: 0.8; transform: scale(1.1); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes pulse-selected {
+  0%, 100% { box-shadow: 0 0 15px var(--warning); }
+  50% { box-shadow: 0 0 25px var(--warning), 0 0 35px var(--warning); }
+}
+
+@keyframes glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+@keyframes hit-flash {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(3) sepia(1) saturate(5) hue-rotate(-50deg); }
+}
+
+@keyframes attack-trail {
+  0% { box-shadow: 0 0 0 0 rgba(255, 222, 0, 0); }
+  50% { box-shadow: 0 0 20px 10px rgba(255, 222, 0, 0.5); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 222, 0, 0); }
 }
 
 @keyframes attack-player {
@@ -407,7 +542,98 @@ h2 {
   50% { opacity: 0.8; transform: scale(1.2); }
 }
 
-.player.attacking { animation: attack-player 0.4s ease; }
-.enemy.attacking { animation: attack-enemy 0.4s ease; }
-.player-hit, .enemy-hit { animation: shake 0.3s ease, damage-flash 0.3s ease; }
+@keyframes attack-btn-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.player.attacking { animation: attack-player 0.4s ease, attack-trail 0.4s ease; }
+.enemy.attacking { animation: attack-enemy 0.4s ease, attack-trail 0.4s ease; }
+.player-hit, .enemy-hit { animation: shake 0.3s ease, hit-flash 0.3s ease; }
 .evolution-animation { animation: evolution-flash 0.8s ease 3; }
+#attack-btn:not(:disabled):hover { animation: attack-btn-pulse 0.3s ease-in-out; }
+.battle-messages p { animation: fadeInUp 0.3s ease-out forwards; opacity: 0; }
+
+#player-sprite, #enemy-sprite {
+  animation: battleEnter 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.sprite-animated {
+  animation: fadeInUp 0.6s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 1rem; }
+  h2 { font-size: 0.75rem; }
+  .starter-pokemon { gap: 10px; }
+  .starter-card { min-width: 100px; padding: 10px; }
+  .starter-card img { width: 60px; height: 60px; }
+  .starter-card .name { font-size: 0.6rem; }
+  .move-menu { grid-template-columns: repeat(2, 1fr); gap: 5px; max-width: 100%; }
+  .move-option { padding: 6px; }
+  .move-name { font-size: 0.65rem; }
+  .move-type { font-size: 0.45rem; }
+  .attackButton { padding: 14px 28px; font-size: 0.8rem; }
+  .sprite { width: 80px; height: 80px; }
+  .battle-stats { gap: 8px; }
+  .stat-box { padding: 4px 8px; font-size: 0.65rem; }
+}
+
+@media (max-width: 480px) {
+  body { padding: 10px; }
+  h1 { font-size: 0.85rem; margin-bottom: 12px; }
+  h2 { font-size: 0.65rem; margin-bottom: 10px; }
+  .screen { padding: 12px; border-radius: 12px; }
+  .difficulty-buttons { flex-direction: column; gap: 8px; }
+  .difficulty-btn { width: 100%; padding: 10px; font-size: 0.55rem; }
+  .starter-pokemon { flex-direction: column; align-items: center; gap: 8px; }
+  .starter-card { width: 100%; max-width: 200px; padding: 8px; }
+  .starter-card img { width: 70px; height: 70px; }
+  .starter-card .name { font-size: 0.65rem; }
+  .controls-hint { font-size: 0.6rem; line-height: 1.3; }
+  #start-btn { width: 100%; padding: 12px; font-size: 0.7rem; }
+  .battle-stats { flex-direction: column; gap: 6px; }
+  .stat-box { width: 100%; text-align: center; padding: 5px; }
+  .pokemon-box { padding: 8px; margin: 8px 0; }
+  .sprite { width: 70px; height: 70px; }
+  .pokemon-name { font-size: 0.7rem; }
+  .health-bar { height: 14px; }
+  .health-text { font-size: 0.6rem; }
+  .enemy-level, .player-level { font-size: 0.6rem; }
+  .type-badge span { font-size: 0.5rem; padding: 1px 4px; }
+  .battle-messages { min-height: 50px; max-height: 80px; font-size: 0.65rem; padding: 8px; }
+  .move-menu { grid-template-columns: 1fr; gap: 4px; max-width: 100%; }
+  .move-option { padding: 6px 8px; }
+  .move-name { font-size: 0.65rem; }
+  .move-type { font-size: 0.45rem; }
+  .attackButton { width: 100%; padding: 14px; font-size: 0.85rem; margin: 12px 0; }
+  .final-score { font-size: 0.8rem; }
+  #play-again-btn, #return-title-btn { width: 100%; margin: 6px 0; padding: 10px; font-size: 0.65rem; }
+  .pagination-btn { padding: 8px 14px; font-size: 0.55rem; }
+  .pagination-info { font-size: 0.65rem; }
+}
+
+@media (max-width: 360px) {
+  h1 { font-size: 0.75rem; }
+  .starter-card img { width: 60px; height: 60px; }
+  .sprite { width: 60px; height: 60px; }
+  .attackButton { font-size: 0.75rem; padding: 12px; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .starter-card:hover { transform: none; }
+  .starter-card:active { transform: scale(0.95); }
+  .move-option:hover { background: rgba(42, 117, 187, 0.2); }
+  .move-option:active { background: var(--warning); color: var(--dark); }
+  .attackButton:hover { transform: none; }
+  .attackButton:active { transform: translateY(2px); box-shadow: 0 3px 0 #8b0000; }
+  .difficulty-btn:hover { transform: none; }
+  .difficulty-btn:active { transform: scale(0.95); }
+}
+
+@media (max-width: 768px) {
+  input, button, select { font-size: 16px !important; }
+}

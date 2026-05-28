@@ -2,8 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Pokémon Battle Arena 2.0 - Videojuego de batalla por turnos" />
   <title>Pokémon Battle Arena 2.0</title>
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" />
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" />
+  
   <link rel="stylesheet" href="battle.css" />
 </head>
 <body>
@@ -19,58 +24,24 @@
       </div>
       
       <h2 style="margin-top: 20px;">🎯 Elige tu Pokémon Inicial</h2>
+      
+      <div class="pagination-info">
+        <span>Página: <span id="current-page">1</span> de <span id="total-pages">1</span></span>
+      </div>
+      
       <div class="starter-pokemon" id="starter-grid">
-        <div class="starter-card selected" data-pokemon="charmander">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif" alt="Charmander" />
-          <div class="name">CHARMANDER</div>
-          <div class="type tipo-fire">FIRE</div>
-        </div>
-        <div class="starter-card" data-pokemon="bulbasaur">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif" alt="Bulbasaur" />
-          <div class="name">BULBASAUR</div>
-          <div class="type tipo-grass">GRASS</div>
-        </div>
-        <div class="starter-card" data-pokemon="squirtle">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif" alt="Squirtle" />
-          <div class="name">SQUIRTLE</div>
-          <div class="type tipo-water">WATER</div>
-        </div>
-        <div class="starter-card" data-pokemon="chikorita">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/152.gif" alt="Chikorita" />
-          <div class="name">CHIKORITA</div>
-          <div class="type tipo-grass">GRASS</div>
-        </div>
-        <div class="starter-card" data-pokemon="cyndaquil">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/155.gif" alt="Cyndaquil" />
-          <div class="name">CYND AQUIL</div>
-          <div class="type tipo-fire">FIRE</div>
-        </div>
-        <div class="starter-card" data-pokemon="totodile">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/158.gif" alt="Totodile" />
-          <div class="name">TOTODILE</div>
-          <div class="type tipo-water">WATER</div>
-        </div>
-        <div class="starter-card" data-pokemon="treecko">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/252.gif" alt="Treecko" />
-          <div class="name">TREECKO</div>
-          <div class="type tipo-grass">GRASS</div>
-        </div>
-        <div class="starter-card" data-pokemon="torchic">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/255.gif" alt="Torchic" />
-          <div class="name">TORCHIC</div>
-          <div class="type tipo-fire">FIRE</div>
-        </div>
-        <div class="starter-card" data-pokemon="mudkip">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/258.gif" alt="Mudkip" />
-          <div class="name">MUDKIP</div>
-          <div class="type tipo-water">WATER</div>
-        </div>
+        <!-- Se llena con JS -->
+      </div>
+      
+      <div class="pagination-controls">
+        <button id="prev-page" class="pagination-btn" disabled>⬅ Anterior</button>
+        <button id="next-page" class="pagination-btn" disabled>Siguiente ➡</button>
       </div>
       
       <p class="controls-hint">
         ⌨️ CONTROLES:<br />
         ↑ ↓ : Seleccionar movimiento<br />
-        🖱️ CLICK : Botón ATTACK
+        🖱️/👆 : CLICK en ATTACK
       </p>
       
       <button id="start-btn">¡COMENZAR BATALLA!</button>

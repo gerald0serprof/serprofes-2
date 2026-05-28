@@ -2,36 +2,58 @@ const input = document.getElementById("poke-input");
 const btn = document.getElementById("btn-buscar");
 const out = document.getElementById("resultado");
 
-btn.addEventListener("click", async () =>{
-    //Limpiamos el texto y lo pasamos a minúsculas (La API falla si le envías mayúsculas)
-    const termino = input.value.trim().toLowerCase();
-    if (termino === ""){
-        out.textContent = "⚠ Por favor, escribe un nombre o ID.";
-        return;
-    }
-    out.textContent = "⌛ Cargando datos desde la PokéAPI...";
+btn.addEventListener("click", async () => {
+  const termino = input.value.trim().toLowerCase();
+  if (termino === "") {
+    out.textContent = "⚠ Por favor, escribe un nombre o ID.";
+    return;
+  }
 
-    try {
-        const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${termino}`);
+  out.textContent = "⌛ Cargando datos desde la PokéAPI...";
 
-        if(!respuesta.ok) throw new Error("Pókemon no encontrado");
+  try {
+    const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${termino}`);
+    if (!respuesta.ok) throw new Error("Pokémon no encontrado");
 
-        const pokemon = await respuesta.json();
+    const pokemon = await respuesta.json();
 
-        const estadisticasHTML = pokemon.stats.map(stat =>{
-            return `<li><strong>${stat.stat.name.toUpperCase()}:</strong>
-                    ${stat.base_stat}
-                    </li>`;
-        }).join("");
-        const tipos = pokemon.types.map(t => t.type.name).join(", ");
-        out.innerHTML = `<h2>${pokemon.name.toUpperCase()}(#${pokemon.id})</h2>
-                        <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" width="150" />
-                        <p><strong>Tipos:</strong>${tipos}</p>
-                        <ul>${estadisticasHTML}
-                        </ul>`;
-        
-    } catch (error) {
-        out.textContent = "❌ Error: No existe ningún Pókemon con ese nombre";
-    }
+    // Intentar sacar animación, si no hay, usar imagen estática
+    const animUrl =
+      pokemon.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default ||
+      pokemon.sprites.front_default;
 
-})
+    const estadisticasHTML = pokemon.stats.map(stat => {
+      return `<li><strong>${stat.stat.name.toUpperCase()}:</strong> ${stat.base_stat}</li>`;
+    }).join("");
+
+    const tipos = pokemon.types.map(t => t.type.name).join(", ");
+
+    // URL del sonido (grito) desde PokeAPI/cries
+    const urlCry = `https://raw.githubusercontent.com/PokeAPI/cries/master/cries/pokemon/latest/${pokemon.id}.ogg`;
+
+    out.innerHTML = `<h2>${pokemon.name.toUpperCase()} (#${pokemon.id})</h2>
+      <img src="${animUrl}" alt="${pokemon.name}" width="150" />
+      <p><strong>Tipos:</strong> <span class="tipo-badge tipo-${pokemon.types[0].type.name}">${pokemon.types[0].type.name}</span>${pokemon.types.length > 1 ? ' <span class="tipo-badge tipo-' + pokemon.types[1].type.name + '">' + pokemon.types[1].type.name + '</span>' : ''}</p>
+      <ul>${estadisticasHTML}</ul>`;
+
+    // Animación de aparición
+    out.classList.add("pop-in");
+    setTimeout(() => out.classList.remove("pop-in"), 400);
+
+    // Reproducir sonido
+    const audio = new Audio(urlCry);
+    audio.play().catch(() => {
+      console.log("El navegador bloqueó la reproducción automática.");
+    });
+
+  } catch (error) {
+    out.textContent = "❌ Error: No existe ningún Pokémon con ese nombre";
+  }
+});
+
+// Permitir buscar con Enter
+input.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    btn.click();
+  }
+});

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokémon Battle Arena 2.0</title>
+  <link rel="stylesheet" href="battle.css" />
+</head>
+<body>
+  <div class="game-container">
+    <h1>⚔️ Pokémon Battle Arena 2.0 ⚔️</h1>
+    
+    <div id="title-screen" class="screen">
+      <h2>🎮 Selecciona Dificultad</h2>
+      <div class="difficulty-buttons">
+        <button class="difficulty-btn easy" data-difficulty="easy">Fácil</button>
+        <button class="difficulty-btn medium selected" data-difficulty="medium">Medio</button>
+        <button class="difficulty-btn hard" data-difficulty="hard">Difícil</button>
+      </div>
+      
+      <h2 style="margin-top: 20px;">🎯 Elige tu Pokémon Inicial</h2>
+      <div class="starter-pokemon" id="starter-grid">
+        <div class="starter-card selected" data-pokemon="charmander">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif" alt="Charmander" />
+          <div class="name">CHARMANDER</div>
+          <div class="type tipo-fire">FIRE</div>
+        </div>
+        <div class="starter-card" data-pokemon="bulbasaur">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif" alt="Bulbasaur" />
+          <div class="name">BULBASAUR</div>
+          <div class="type tipo-grass">GRASS</div>
+        </div>
+        <div class="starter-card" data-pokemon="squirtle">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif" alt="Squirtle" />
+          <div class="name">SQUIRTLE</div>
+          <div class="type tipo-water">WATER</div>
+        </div>
+        <div class="starter-card" data-pokemon="chikorita">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/152.gif" alt="Chikorita" />
+          <div class="name">CHIKORITA</div>
+          <div class="type tipo-grass">GRASS</div>
+        </div>
+        <div class="starter-card" data-pokemon="cyndaquil">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/155.gif" alt="Cyndaquil" />
+          <div class="name">CYND AQUIL</div>
+          <div class="type tipo-fire">FIRE</div>
+        </div>
+        <div class="starter-card" data-pokemon="totodile">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/158.gif" alt="Totodile" />
+          <div class="name">TOTODILE</div>
+          <div class="type tipo-water">WATER</div>
+        </div>
+        <div class="starter-card" data-pokemon="treecko">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/252.gif" alt="Treecko" />
+          <div class="name">TREECKO</div>
+          <div class="type tipo-grass">GRASS</div>
+        </div>
+        <div class="starter-card" data-pokemon="torchic">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/255.gif" alt="Torchic" />
+          <div class="name">TORCHIC</div>
+          <div class="type tipo-fire">FIRE</div>
+        </div>
+        <div class="starter-card" data-pokemon="mudkip">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/258.gif" alt="Mudkip" />
+          <div class="name">MUDKIP</div>
+          <div class="type tipo-water">WATER</div>
+        </div>
+      </div>
+      
+      <p class="controls-hint">
+        ⌨️ CONTROLES:<br />
+        ↑ ↓ : Seleccionar movimiento<br />
+        🖱️ CLICK : Botón ATTACK
+      </p>
+      
+      <button id="start-btn">¡COMENZAR BATALLA!</button>
+      
+      <div class="highscore">
+        🏆 High Score: <span id="highscore">0</span>
+      </div>
+    </div>
+
+    <div id="battle-screen" class="screen hidden">
+      <div class="battle-stats">
+        <div class="stat-box"><span>Nivel:</span><span id="player-level">1</span></div>
+        <div class="stat-box"><span>Puntos:</span><span id="score">0</span></div>
+        <div class="stat-box"><span>Dificultad:</span><span id="difficulty-display">Medio</span></div>
+      </div>
+
+      <div class="battle-area">
+        <div class="pokemon-box enemy">
+          <div class="health-bar_container">
+            <span class="pokemon-name" id="enemy-name"></span>
+            <div class="health-bar"><div class="health-fill" id="enemy-health"></div></div>
+            <span class="health-text" id="enemy-health-text"></span>
+          </div>
+          <img id="enemy-sprite" src="" alt="Enemigo" class="sprite enemy-sprite" />
+          <div class="type-badge" id="enemy-types"></div>
+          <div class="enemy-level">Nivel <span id="enemy-level">1</span></div>
+        </div>
+
+        <div class="battle-messages" id="battle-messages">
+          <p>¡La batalla comienza!</p>
+        </div>
+
+        <div class="pokemon-box player">
+          <div class="health-bar_container">
+            <span class="pokemon-name" id="player-name"></span>
+            <div class="health-bar"><div class="health-fill" id="player-health"></div></div>
+            <span class="health-text" id="player-health-text"></span>
+          </div>
+          <img id="player-sprite" src="" alt="Jugador" class="sprite player-sprite" />
+          <div class="type-badge" id="player-types"></div>
+          <div class="player-level">Nivel <span id="player-lvl-display">1</span></div>
+        </div>
+
+        <div class="move-menu" id="move-menu">
+          <div class="move-option selected" data-move="tackle"><span class="move-name">Tackle</span><span class="move-type tipo-normal">NORMAL</span></div>
+          <div class="move-option" data-move="scratch"><span class="move-name">Scratch</span><span class="move-type tipo-normal">NORMAL</span></div>
+          <div class="move-option" data-move="ember"><span class="move-name">Ember</span><span class="move-type tipo-fire">FIRE</span></div>
+          <div class="move-option" data-move="water-gun"><span class="move-name">Water Gun</span><span class="move-type tipo-water">WATER</span></div>
+          <div class="move-option" data-move="vine-whip"><span class="move-name">Vine Whip</span><span class="move-type tipo-grass">GRASS</span></div>
+          <div class="move-option" data-move="thunder-shock"><span class="move-name">Thunder Shock</span><span class="move-type tipo-electric">ELECTRIC</span></div>
+          <div class="move-option" data-move="karate-chop"><span class="move-name">Karate Chop</span><span class="move-type tipo-fighting">FIGHTING</span></div>
+          <div class="move-option" data-move="dragon-punch"><span class="move-name">Dragon Punch</span><span class="move-type tipo-fighting">FIGHTING</span></div>
+        </div>
+
+        <button id="attack-btn" class="attackButton">⚔️ ATTACK</button>
+      </div>
+    </div>
+
+    <div id="game-over-screen" class="screen hidden">
+      <h2 id="game-over-title">¡Batalla Terminada!</h2>
+      <p id="game-over-message"></p>
+      <p class="final-score">Puntuación Final: <span id="final-score">0</span></p>
+      <button id="play-again-btn">Jugar de Nuevo</button>
+      <button id="return-title-btn">Volver al Menú</button>
+    </div>
+  </div>
+
+  <script src="battle.js"></script>
+</body>
+</html>

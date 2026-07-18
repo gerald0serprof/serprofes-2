@@ -1,66 +1,7 @@
-// ==========================================================
-// Navigation.jsx
-// Componente para navegar entre vistas
-// ==========================================================
+/** Agrupa la navegación principal y las subpestañas propias de películas y series. */
 function Navigation({ currentView, onViewChange }) {
-  return (
-    <div style={{
-      display: "flex",
-      gap: "12px",
-      marginBottom: "20px",
-      padding: "12px",
-      backgroundColor: "#f5f5f5",
-      borderRadius: "8px"
-    }}>
-      <button
-        onClick={() => onViewChange("movies")}
-        className="btn"
-        style={{
-          backgroundColor: currentView === "movies" ? "#4CAF50" : "#ddd",
-          color: currentView === "movies" ? "white" : "#333",
-          border: "none",
-          cursor: "pointer",
-          padding: "10px 20px",
-          borderRadius: "4px",
-          fontWeight: currentView === "movies" ? "bold" : "normal"
-        }}
-      >
-        🎬 Películas
-      </button>
-
-      <button
-        onClick={() => onViewChange("series")}
-        className="btn"
-        style={{
-          backgroundColor: currentView === "series" ? "#4CAF50" : "#ddd",
-          color: currentView === "series" ? "white" : "#333",
-          border: "none",
-          cursor: "pointer",
-          padding: "10px 20px",
-          borderRadius: "4px",
-          fontWeight: currentView === "series" ? "bold" : "normal"
-        }}
-      >
-        📺 Series
-      </button>
-
-      <button
-        onClick={() => onViewChange("search")}
-        className="btn"
-        style={{
-          backgroundColor: currentView === "search" ? "#4CAF50" : "#ddd",
-          color: currentView === "search" ? "white" : "#333",
-          border: "none",
-          cursor: "pointer",
-          padding: "10px 20px",
-          borderRadius: "4px",
-          fontWeight: currentView === "search" ? "bold" : "normal"
-        }}
-      >
-        🔍 Buscar
-      </button>
-    </div>
-  );
+  const section = currentView.includes("movie") ? "movies" : currentView.includes("series") ? "series" : currentView;
+  const mainItems = [["search", "Buscar"], ["movies", "Películas"], ["series", "Series"], ["add-movie", "Añadir película"], ["add-series", "Añadir serie"]];
+  return <div className="navbar-content"><nav className="navigation" aria-label="Navegación principal">{mainItems.map(([value, label]) => <button key={value} className={`btn ${currentView === value ? "active" : ""}`} onClick={() => onViewChange(value)}>{label}</button>)}</nav>{(section === "movies" || section === "series") && <nav className="subnavigation" aria-label={`Sección ${section}`}><button className={currentView === section ? "active" : ""} onClick={() => onViewChange(section)}>Catálogo</button><button className={currentView === (section === "movies" ? "upcoming-movies" : "upcoming-series") ? "active" : ""} onClick={() => onViewChange(section === "movies" ? "upcoming-movies" : "upcoming-series")}>Próximamente</button></nav>}</div>;
 }
-
 export default Navigation;

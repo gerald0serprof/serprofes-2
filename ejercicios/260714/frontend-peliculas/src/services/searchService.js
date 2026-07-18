@@ -5,12 +5,15 @@
 
 const API_URL = "http://localhost:3000/api/search";
 
-export async function searchContent(query, type = "all") {
-  if (!query || query.trim() === "") {
+/** Consulta la API de búsqueda con los filtros opcionales seleccionados por el usuario. */
+export async function searchContent(filters, type = "all") {
+  const normalized = typeof filters === "string" ? { query: filters, type } : filters;
+  if (!normalized?.query || normalized.query.trim() === "") {
     return [];
   }
-
-  const response = await fetch(`${API_URL}?q=${encodeURIComponent(query)}&type=${type}`);
+  const params = new URLSearchParams({ q: normalized.query, type: normalized.type || type });
+  ["genre", "year", "director"].forEach((key) => { if (normalized[key]) params.set(key, normalized[key]); });
+  const response = await fetch(`${API_URL}?${params}`);
   
   if (!response.ok) {
     throw new Error("Error en la búsqueda");

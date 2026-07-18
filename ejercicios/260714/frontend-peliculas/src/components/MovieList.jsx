@@ -6,7 +6,7 @@
 // ==========================================================
 import MovieCard from "./MovieCard.jsx";
 
-function MovieList({ movies, onEdit, onDelete }) {
+function MovieList({ movies, onSelect }) {
   // Si no hay películas (catálogo vacío), mostramos un mensaje
   if (movies.length === 0) {
     return <p className="empty-message">No hay películas en el catálogo todavía.</p>;
@@ -18,8 +18,7 @@ function MovieList({ movies, onEdit, onDelete }) {
         <MovieCard
           key={movie.id}
           movie={movie}
-          onEdit={onEdit}
-          onDelete={onDelete}
+          onSelect={onSelect}
         />
       ))}
     </div>

@@ -6,7 +6,7 @@
 // ==========================================================
 import SerieCard from "./SerieCard.jsx";
 
-function SerieList({ series, onEdit, onDelete }) {
+function SerieList({ series, onSelect }) {
   if (series.length === 0) {
     return <p className="empty-message">No hay series en el catálogo todavía.</p>;
   }
@@ -17,8 +17,7 @@ function SerieList({ series, onEdit, onDelete }) {
         <SerieCard
           key={serie.id}
           serie={serie}
-          onEdit={onEdit}
-          onDelete={onDelete}
+          onSelect={onSelect}
         />
       ))}
     </div>

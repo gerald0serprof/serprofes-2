@@ -178,6 +178,19 @@ body {
   transition: transform 0.15s ease;
 }
 
+.card-button {
+  border: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.card-button small {
+  display: block;
+  color: #b3b3b3;
+  margin-top: 4px;
+}
+
 .movie-card:hover {
   transform: translateY(-3px);
 }
@@ -204,3 +217,68 @@ body {
   text-align: center;
   padding: 40px 0;
 }
+
+/* ---------------- ESTRUCTURA, NAVEGACIÓN Y BÚSQUEDA ---------------- */
+.header-container, .footer-container { max-width: 1200px; margin: 0 auto; width: 100%; }
+.header-container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.app-header { margin: 0; padding: 18px 20px 0; background: #141414; }
+.header-top { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.theme-toggle { border: 1px solid #555; border-radius: 20px; padding: 7px 11px; background: transparent; color: inherit; cursor: pointer; font-weight: 600; }
+.navbar-content { width: 100%; }
+.tagline { margin: 6px 0 0; color: #b3b3b3; }
+.navigation { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 0 8px; margin: 12px 0 0; background: transparent; border-radius: 12px; }
+.navigation .btn { background: transparent; color: #d0d0d0; padding: 9px 12px; }
+.navigation .btn.active, .navigation .btn:hover { color: #fff; background: #e50914; }
+.subnavigation { display: flex; gap: 6px; padding-bottom: 12px; }
+.subnavigation button { border: 0; border-bottom: 2px solid transparent; padding: 7px 10px; background: transparent; color: #aaa; cursor: pointer; }
+.subnavigation button.active { color: #fff; border-color: #e50914; }
+.search-bar { padding: 22px; border-radius: 12px; background: #222; margin-bottom: 24px; }
+.search-main { display: flex; gap: 12px; align-items: end; }
+.search-main .form-group { flex: 1; }
+.search-input, .search-select, .filter-input, .filter-select { width: 100%; padding: 11px; border: 1px solid #555; border-radius: 7px; background: #151515; color: #fff; }
+.btn-advanced-toggle { width: 100%; margin-top: 8px; padding: 10px; background: transparent; border: 1px dashed #666; border-radius: 7px; color: #ddd; cursor: pointer; }
+.advanced-filters { margin-top: 12px; padding: 16px; border-radius: 8px; background: #171717; }
+.filters-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.movie-card img { width: 100%; height: 290px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; }
+
+/* ---------------- DETALLE ---------------- */
+.detail-page { background: #222; border-radius: 12px; overflow: hidden; }
+.detail-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px; background: linear-gradient(135deg, #b20710, #5d0710); }
+.detail-header h1 { margin: 0; }
+.detail-content { display: grid; grid-template-columns: minmax(220px, 1fr) 2fr; gap: 28px; padding: 28px; }
+.detail-poster { width: 100%; max-height: 500px; object-fit: cover; border-radius: 10px; }
+.detail-poster-placeholder, .actor-image-placeholder { display: grid; place-items: center; background: #333; color: #bbb; border-radius: 10px; }
+.detail-poster-placeholder { min-height: 330px; }
+.detail-info-section { display: grid; gap: 16px; }
+.detail-info-group, .detail-genres, .detail-description, .detail-trailer, .rating-container { padding: 18px; border-radius: 10px; background: #171717; }
+.detail-info-group h3, .detail-genres h3, .detail-description h3 { margin-top: 0; color: #f2f2f2; }
+.genres-list, .detail-actions, .detail-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.genre-tag, .badge { padding: 5px 10px; border-radius: 999px; background: #3c1a1d; color: #ffccd0; font-size: 13px; }
+.rating-circle { width: 92px; height: 92px; display: grid; place-content: center; margin: 0 auto 10px; border: 5px solid #e50914; border-radius: 50%; text-align: center; }
+.rating-value { font-size: 28px; font-weight: 700; }.rating-label { color: #bbb; }.rating-stars { text-align: center; color: #ffc107; }
+.trailer-embed { margin-top: 16px; aspect-ratio: 16 / 9; }.trailer-embed iframe { width: 100%; height: 100%; border: 0; }
+.detail-cast-section { padding: 28px; background: #181818; }.cast-carousel { display: flex; justify-content: center; align-items: center; gap: 18px; }.cast-card { min-width: 200px; padding: 16px; border-radius: 10px; text-align: center; background: #292929; }.actor-image, .actor-image-placeholder { width: 130px; height: 160px; object-fit: cover; margin: auto; }
+.muted { color: #94a3b8; }
+.cast-title-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }.cast-title-row h2, .cast-title-row p { margin: 0; }.eyebrow { color: #f87171; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }.cast-controls { display: flex; gap: 8px; }.cast-controls button { width: 38px; height: 38px; border: 1px solid #555; border-radius: 50%; background: #292929; color: #fff; font-size: 18px; cursor: pointer; }.cast-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; padding-bottom: 8px; }.cast-track .cast-card { flex: 0 0 160px; min-width: 160px; padding: 0 0 12px; overflow: hidden; scroll-snap-align: start; text-align: left; }.cast-track .cast-card img { width: 160px; height: 210px; display: block; object-fit: cover; background: #293241; }.cast-track .cast-card h3, .cast-track .cast-card p { margin: 10px 10px 0; }.cast-track .cast-card h3 { font-size: 15px; }.cast-track .cast-card p { color: #b3b3b3; font-size: 13px; }
+
+/* ---------------- PRÓXIMOS ESTRENOS Y PIE ---------------- */
+.upcoming-container { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }.calendar-widget, .upcoming-content { padding: 18px; border-radius: 12px; background: #222; }.calendar-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }.calendar-weekdays, .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }.calendar-weekdays { margin: 16px 0 8px; color: #aaa; }.calendar-day, .calendar-nav-btn { min-height: 36px; border: 0; border-radius: 6px; background: #333; color: #fff; cursor: pointer; }.calendar-day:hover, .calendar-day-selected { background: #e50914; }
+.app-footer { margin-top: 40px; padding: 32px 20px; border-top: 1px solid #333; background: #0c0c0c; color: #aaa; }.footer-container { display: flex; flex-wrap: wrap; gap: 28px; }.footer-section { flex: 1 1 180px; }.footer-section h4 { color: #fff; }.footer-section ul { padding-left: 18px; }.footer-section a { color: #ff7a82; }.footer-bottom { width: 100%; padding-top: 12px; border-top: 1px solid #333; font-size: 13px; }
+@media (max-width: 700px) { .app-container { padding: 24px 14px 50px; }.header-container, .search-main, .detail-header { align-items: stretch; flex-direction: column; }.detail-content, .upcoming-container { grid-template-columns: 1fr; }.navigation .btn { flex: 1 1 140px; }.cast-carousel { gap: 8px; }.carousel-button { padding: 8px; }.movie-card img { height: 250px; } }
+
+/* ---------------- TEMA CLARO ---------------- */
+:root[data-theme="light"] body { background: #f5f6f8; color: #1f2937; }
+:root[data-theme="light"] .app-header, :root[data-theme="light"] .app-footer { background: #ffffff; border-color: #e5e7eb; }
+:root[data-theme="light"] .app-header h1, :root[data-theme="light"] .movie-title, :root[data-theme="light"] .detail-info-group h3, :root[data-theme="light"] .detail-genres h3, :root[data-theme="light"] .detail-description h3, :root[data-theme="light"] .footer-section h4 { color: #1f2937; }
+:root[data-theme="light"] .tagline, :root[data-theme="light"] .card-button small, :root[data-theme="light"] .movie-director, :root[data-theme="light"] .footer-container { color: #64748b; }
+:root[data-theme="light"] .navigation .btn { color: #475569; }
+:root[data-theme="light"] .movie-card, :root[data-theme="light"] .movie-form, :root[data-theme="light"] .search-bar, :root[data-theme="light"] .calendar-widget, :root[data-theme="light"] .upcoming-content, :root[data-theme="light"] .detail-page { background: #ffffff; box-shadow: 0 4px 12px rgba(15, 23, 42, .1); }
+:root[data-theme="light"] .advanced-filters, :root[data-theme="light"] .detail-info-group, :root[data-theme="light"] .detail-genres, :root[data-theme="light"] .detail-description, :root[data-theme="light"] .detail-trailer, :root[data-theme="light"] .rating-container, :root[data-theme="light"] .detail-cast-section, :root[data-theme="light"] .cast-card { background: #f1f5f9; }
+:root[data-theme="light"] .cast-controls button { color: #1f2937; border-color: #cbd5e1; background: #fff; }
+:root[data-theme="light"] .cast-track .cast-card p, :root[data-theme="light"] .muted { color: #64748b; }
+:root[data-theme="light"] .search-input, :root[data-theme="light"] .search-select, :root[data-theme="light"] .filter-input, :root[data-theme="light"] .filter-select { background: #fff; color: #1f2937; border-color: #cbd5e1; }
+:root[data-theme="light"] .calendar-day, :root[data-theme="light"] .calendar-nav-btn { background: #e2e8f0; color: #1f2937; }
+:root[data-theme="light"] .subnavigation button { color: #475569; }
+:root[data-theme="light"] .subnavigation button.active { color: #b91c1c; }
+@media (max-width: 700px) { .app-header { padding: 14px 14px 0; }.header-top { align-items: flex-start; flex-direction: column; }.header-actions { width: 100%; justify-content: space-between; }.navigation { overflow-x: auto; flex-wrap: nowrap; }.navigation .btn { flex: 0 0 auto; white-space: nowrap; }.subnavigation { padding-bottom: 8px; } }

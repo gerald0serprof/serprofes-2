@@ -1,0 +1,71 @@
+# ========================================================
+# GITIGNORE - Professional Security Standards
+# ========================================================
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Mantener los lockfiles para instalaciones reproducibles
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build and dist
+dist/
+build/
+.next/
+out/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+
+# OS-specific
+Thumbs.db
+.Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# OS Generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Testing
+coverage/
+.nyc_output/
+
+# Local development
+.local
+local-only.js
+
+# API Keys and Secrets (CRITICAL - Never commit these)
+.secret
+.secrets
+config/secrets.json
+api-keys.json
+credentials.json
+

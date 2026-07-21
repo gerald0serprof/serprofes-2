@@ -240,6 +240,44 @@ body {
 .rating-stars { text-align: center; color: #ffc107; }
 .trailer-embed { margin-top: 16px; aspect-ratio: 16 / 9; }
 .trailer-embed iframe { width: 100%; height: 100%; border: 0; }
+
+/* Selector de tipos de vídeo */
+.video-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.video-tab {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid #555;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.video-tab:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.video-tab--active {
+  background: #e50914;
+  border-color: #e50914;
+  color: #fff;
+  font-weight: 600;
+}
+
+.video-titulo {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #aaa;
+  text-align: center;
+}
+
 .detail-cast-section { padding: 28px; background: #181818; }
 .cast-carousel { display: flex; justify-content: center; align-items: center; gap: 18px; }
 .cast-card { min-width: 200px; padding: 16px; border-radius: 10px; text-align: center; background: #292929; }

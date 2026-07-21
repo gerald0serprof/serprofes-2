@@ -2,7 +2,11 @@
 // DetailPage.jsx
 // Página completa para mostrar detalles de película/serie
 // Se muestra al seleccionar un contenido
-// Incluye: portada, detalles, trailer, actores
+// Incluye: portada, detalles, vídeos TMDB, actores
+//
+//  - content.trailer  → content.trailer_key (retrocompatibilidad)
+//  - Nuevo selector de vídeos con content.videos[]
+//    Muestra el tipo real de TMDB: Trailer, Teaser, Clip, etc.
 // ========================================================
 
 import { useState, useEffect } from "react";
@@ -10,32 +14,97 @@ import { getMovieById } from "../services/movieService.js";
 import { getSerieById } from "../services/serieService.js";
 import CastCarousel from "./CastCarousel.jsx";
 
+// Etiquetas en español para cada tipo de vídeo TMDB
+const VIDEO_LABEL = {
+  "Trailer":           "🎬 Tráiler",
+  "Teaser":            "📽️ Teaser",
+  "Clip":              "🎞️ Clip",
+  "Featurette":        "🎥 Featurette",
+  "Behind the Scenes": "🎭 Detrás de cámaras",
+  "Bloopers":          "😂 Bloopers",
+};
+
+function VideoSection({ videos = [], trailer_key }) {
+  // Determinar lista de vídeos disponibles; fallback a trailer_key legacy
+  const lista = videos.length > 0
+    ? videos
+    : trailer_key
+      ? [{ tipo: "Trailer", titulo: "Tráiler oficial", key: trailer_key }]
+      : [];
+
+  const [activo, setActivo] = useState(0);
+  const [visible, setVisible] = useState(false);
+
+  if (lista.length === 0) {
+    return <p className="muted">No hay vídeos disponibles para este contenido.</p>;
+  }
+
+  const videoActual = lista[activo];
+
+  return (
+    <div className="detail-trailer">
+      <button
+        className="btn btn-trailer"
+        onClick={() => setVisible(!visible)}
+      >
+        ▶ {visible ? "Ocultar vídeo" : `Ver ${VIDEO_LABEL[videoActual.tipo] ?? videoActual.tipo}`}
+      </button>
+
+      {visible && (
+        <div className="trailer-container">
+          {/* Selector de pestañas solo si hay más de un vídeo */}
+          {lista.length > 1 && (
+            <div className="video-tabs">
+              {lista.map((v, idx) => (
+                <button
+                  key={v.key}
+                  className={`video-tab${idx === activo ? " video-tab--active" : ""}`}
+                  onClick={() => setActivo(idx)}
+                  title={v.titulo}
+                >
+                  {VIDEO_LABEL[v.tipo] ?? v.tipo}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className="trailer-embed">
+            <iframe
+              key={videoActual.key}
+              width="100%"
+              height="400"
+              src={`https://www.youtube.com/embed/${videoActual.key}`}
+              title={videoActual.titulo || videoActual.tipo}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+
+          {videoActual.titulo && (
+            <p className="video-titulo">{videoActual.titulo}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, onDelete }) {
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showTrailer, setShowTrailer] = useState(false);
 
   useEffect(() => {
-    /**
-     * Carga los detalles del contenido (película o serie)
-     * dependiendo del tipo
-     */
     const cargarDetalles = async () => {
       try {
         setLoading(true);
-        let data;
-        
-        if (contentType === "movie") {
-          data = await getMovieById(contentId);
-        } else {
-          data = await getSerieById(contentId);
-        }
-        
+        const data = contentType === "movie"
+          ? await getMovieById(contentId)
+          : await getSerieById(contentId);
         setContent(data);
         setError(null);
-      } catch (err) {
-        // Conserva la ficha resumida para que la navegación al detalle siga funcionando sin TMDB.
+      } catch {
         if (initialContent) { setContent(initialContent); setError(null); }
         else { setError("No se pudo cargar el detalle del contenido"); }
       } finally {
@@ -43,9 +112,7 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
       }
     };
 
-    if (contentId) {
-      cargarDetalles();
-    }
+    if (contentId) cargarDetalles();
   }, [contentId, contentType, initialContent]);
 
   if (loading) {
@@ -72,11 +139,9 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
 
   return (
     <div className="detail-page">
-      {/* Header del detail */}
+      {/* Header */}
       <div className="detail-header">
-        <button className="btn-back" onClick={onBack}>
-          ← Volver
-        </button>
+        <button className="btn-back" onClick={onBack}>← Volver</button>
         <h1>{content.titulo}</h1>
         <div className="detail-badges">
           {!esPersonalizado && <span className="badge badge-tmdb">🎬 TMDB</span>}
@@ -88,19 +153,14 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
       </div>
 
       <div className="detail-content">
-        {/* Columna Izquierda: Poster */}
+        {/* Columna izquierda: Poster */}
         <div className="detail-poster-section">
-          {content.imagen && content.imagen.trim() !== "" ? (
-            <img
-              src={content.imagen}
-              alt={content.titulo}
-              className="detail-poster"
-            />
+          {content.imagen?.trim() ? (
+            <img src={content.imagen} alt={content.titulo} className="detail-poster" />
           ) : (
             <div className="detail-poster-placeholder">Sin imagen</div>
           )}
 
-          {/* Calificación creativa */}
           {content.calificacion && (
             <div className="rating-container">
               <div className="rating-circle">
@@ -117,22 +177,16 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
             </div>
           )}
 
-          {/* Botones de acción (solo si es personalizado) */}
           {esPersonalizado && (
             <div className="detail-actions">
-              <button className="btn btn-edit" onClick={() => onEdit(content)}>
-                ✏️ Editar
-              </button>
-              <button className="btn btn-delete" onClick={() => onDelete(content.id)}>
-                🗑️ Eliminar
-              </button>
+              <button className="btn btn-edit" onClick={() => onEdit(content)}>✏️ Editar</button>
+              <button className="btn btn-delete" onClick={() => onDelete(content.id)}>🗑️ Eliminar</button>
             </div>
           )}
         </div>
 
-        {/* Columna Derecha: Información */}
+        {/* Columna derecha: Información */}
         <div className="detail-info-section">
-          {/* Información Básica */}
           <div className="detail-info-group">
             <h3>Información</h3>
             <p><strong>Título original:</strong> {content.titulo_original || content.titulo || "No disponible"}</p>
@@ -144,13 +198,21 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
             {content.tipo === "serie" && content.temporadas && (
               <p><strong>Temporadas:</strong> {content.temporadas}</p>
             )}
-            <p><strong>{content.tipo === "pelicula" ? "Director(es)" : "Creador(es)"}:</strong> {content.director || content.creador || "No disponible"}</p>
+            <p>
+              <strong>{content.tipo === "pelicula" ? "Director(es)" : "Creador(es)"}:</strong>{" "}
+              {content.director || content.creador || "No disponible"}
+            </p>
           </div>
 
-          {/* Géneros como etiquetas */}
-          <div className="detail-genres"><h3>Géneros</h3><div className="genres-list">{content.generos?.length ? content.generos.map((genero, idx) => <span key={idx} className="genre-tag">{genero}</span>) : <span className="muted">No disponibles</span>}</div></div>
+          <div className="detail-genres">
+            <h3>Géneros</h3>
+            <div className="genres-list">
+              {content.generos?.length
+                ? content.generos.map((g, idx) => <span key={idx} className="genre-tag">{g}</span>)
+                : <span className="muted">No disponibles</span>}
+            </div>
+          </div>
 
-          {/* Descripción */}
           {content.descripcion && (
             <div className="detail-description">
               <h3>Sinopsis</h3>
@@ -158,29 +220,11 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
             </div>
           )}
 
-          {/* Botón de Trailer */}
-          <div className="detail-trailer">
-            {content.trailer ? (<>
-              <button
-                className="btn btn-trailer"
-                onClick={() => setShowTrailer(!showTrailer)}
-              >
-                ▶ {showTrailer ? "Ocultar tráiler" : "Ver tráiler"}
-              </button>
-              {showTrailer && (
-                <div className="trailer-embed">
-                  <iframe
-                    width="100%"
-                    height="400"
-                    src={`https://www.youtube.com/embed/${content.trailer}`}
-                    title="Trailer"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              )}</>) : <p className="muted">No hay tráiler disponible para este contenido.</p>}
-            </div>
+          {/* VideoSection reemplaza el bloque anterior de trailer */}
+          <VideoSection
+            videos={content.videos}
+            trailer_key={content.trailer_key}
+          />
         </div>
       </div>
 

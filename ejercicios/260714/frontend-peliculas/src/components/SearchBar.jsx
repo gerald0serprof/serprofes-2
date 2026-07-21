@@ -5,183 +5,146 @@
 // ========================================================
 import { useState } from "react";
 
+const GENRES = [
+  "Acción", "Aventura", "Animación", "Comedia", "Crimen",
+  "Documental", "Drama", "Familia", "Fantasía", "Histórico",
+  "Horror", "Música", "Misterio", "Romance", "Ciencia Ficción",
+  "Suspenso", "Televisión", "Thriller", "Guerra", "Occidental",
+];
+
+function generateYears() {
+  const current = new Date().getFullYear();
+  const years = [];
+  for (let y = current; y >= current - 50; y--) years.push(y);
+  return years;
+}
+
 function SearchBar({ onSearch, isLoading }) {
-  const [query, setQuery] = useState("");
-  const [searchType, setSearchType] = useState("all");
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
+  const [query,            setQuery]            = useState("");
+  const [searchType,       setSearchType]       = useState("all");
+  const [showAdvanced,     setShowAdvanced]     = useState(false);
+  const [selectedGenre,    setSelectedGenre]    = useState("");
+  const [selectedYear,     setSelectedYear]     = useState("");
   const [selectedDirector, setSelectedDirector] = useState("");
 
-  /**
-   * Genres disponibles en TMDB
-   */
-  const genres = [
-    "Acción", "Aventura", "Animación", "Comedia", "Crimen",
-    "Documental", "Drama", "Familia", "Fantasía", "Histórico",
-    "Horror", "Música", "Misterio", "Romance", "Ciencia Ficción",
-    "Suspenso", "Televisión", "Thriller", "Guerra", "Occidental"
-  ];
-
-  /**
-   * Genera lista de años (últimos 50 años)
-   */
-  const generateYears = () => {
-    const currentYear = new Date().getFullYear();
-    const years = [];
-    for (let i = currentYear; i >= currentYear - 50; i--) {
-      years.push(i);
-    }
-    return years;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    onSearch({ query, type: searchType, genre: selectedGenre, year: selectedYear, director: selectedDirector });
   };
 
-  /**
-   * Ejecuta la búsqueda con todos los filtros
-   */
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (query.trim() !== "") {
-      const filters = {
-        query,
-        type: searchType,
-        genre: selectedGenre,
-        year: selectedYear,
-        director: selectedDirector
-      };
-      onSearch(filters);
-    }
-  };
-
-  /**
-   * Limpia todos los filtros
-   */
-  const handleClearFilters = () => {
-    setQuery("");
-    setSearchType("all");
-    setSelectedGenre("");
-    setSelectedYear("");
-    setSelectedDirector("");
-    setShowAdvancedFilters(false);
+  const handleClear = () => {
+    setQuery(""); setSearchType("all"); setSelectedGenre("");
+    setSelectedYear(""); setSelectedDirector(""); setShowAdvanced(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-bar">
-      {/* Búsqueda principal */}
-      <div className="search-main">
-        <div className="form-group" style={{ flex: 1 }}>
-          <label htmlFor="search-query" style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}>
-            🔍 ¿Qué buscas?
-          </label>
-          <input
-            id="search-query"
-            type="text"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Ej: Inception, The Office, Avatar..."
-            className="search-input"
-          />
-        </div>
+    <div className="search-hero">
+      <div className="search-hero-inner">
+        <p className="search-eyebrow">Descubre tu próxima historia</p>
+        <h2 className="search-heading">¿Qué quieres ver hoy?</h2>
 
-        <div className="form-group" style={{ marginLeft: "12px" }}>
-          <label htmlFor="search-type" style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}>
-            Tipo
-          </label>
-          <select
-            id="search-type"
-            value={searchType}
-            onChange={(event) => setSearchType(event.target.value)}
-            className="search-select"
-          >
-            <option value="all">🎥 Todo</option>
-            <option value="movie">🎬 Películas</option>
-            <option value="tv">📺 Series</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-primary search-btn"
-          disabled={isLoading}
-        >
-          {isLoading ? "Buscando..." : "🔍 Buscar"}
-        </button>
-      </div>
-
-      {/* Toggle para filtros avanzados */}
-      <button
-        type="button"
-        className="btn-advanced-toggle"
-        onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-      >
-        ⚙️ {showAdvancedFilters ? "Ocultar Filtros" : "Mostrar Filtros Avanzados"}
-      </button>
-
-      {/* Filtros avanzados (colapsable) */}
-      {showAdvancedFilters && (
-        <div className="advanced-filters">
-          <div className="filters-row">
-            {/* Filtro de Género */}
-            <div className="form-group">
-              <label htmlFor="genre-select">Género</label>
-              <select
-                id="genre-select"
-                value={selectedGenre}
-                onChange={(event) => setSelectedGenre(event.target.value)}
-                className="filter-select"
-              >
-                <option value="">Todos los géneros</option>
-                {genres.map((genre) => (
-                  <option key={genre} value={genre}>
-                    {genre}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Filtro de Año */}
-            <div className="form-group">
-              <label htmlFor="year-select">Año</label>
-              <select
-                id="year-select"
-                value={selectedYear}
-                onChange={(event) => setSelectedYear(event.target.value)}
-                className="filter-select"
-              >
-                <option value="">Todos los años</option>
-                {generateYears().map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Filtro de Director/Creador */}
-            <div className="form-group">
-              <label htmlFor="director-input">Director/Creador</label>
+        <form onSubmit={handleSubmit} className="search-form" noValidate>
+          {/* Barra principal */}
+          <div className="search-row">
+            <div className="search-input-wrap">
+              {/* Icono lupa decorativo dentro del input */}
+              <svg className="search-input-icon" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
               <input
-                id="director-input"
+                id="search-query"
                 type="text"
-                value={selectedDirector}
-                onChange={(event) => setSelectedDirector(event.target.value)}
-                placeholder="Ej: Christopher Nolan"
-                className="filter-input"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Título, director, saga..."
+                className="search-input-field"
+                autoComplete="off"
               />
             </div>
 
-            {/* Botón de limpiar filtros */}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={handleClearFilters}
-              style={{ alignSelf: "flex-end" }}
+            <select
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+              className="search-type-select"
+              aria-label="Tipo de contenido"
             >
-              🔄 Limpiar Filtros
+              <option value="all">Todo</option>
+              <option value="movie">Películas</option>
+              <option value="tv">Series</option>
+            </select>
+
+            {/* Botón de búsqueda — solo icono, sin texto */}
+            <button
+              type="submit"
+              className="search-submit-btn"
+              disabled={isLoading}
+              aria-label={isLoading ? "Buscando…" : "Buscar"}
+            >
+              {isLoading ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                  className="search-btn-icon spin" aria-hidden="true">
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  className="search-btn-icon" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+              )}
             </button>
           </div>
-        </div>
-      )}
-    </form>
+
+          {/* Toggle filtros avanzados */}
+          <button
+            type="button"
+            className="search-filter-toggle"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+              width="15" height="15" aria-hidden="true">
+              <path d="M22 3H2l8 9.46V19l4 2v-8.54Z"/>
+            </svg>
+            {showAdvanced ? "Ocultar filtros" : "Filtros avanzados"}
+          </button>
+
+          {/* Filtros avanzados */}
+          {showAdvanced && (
+            <div className="search-advanced">
+              <div className="filters-row">
+                <div className="form-group">
+                  <label htmlFor="filter-genre">Género</label>
+                  <select id="filter-genre" value={selectedGenre}
+                    onChange={(e) => setSelectedGenre(e.target.value)} className="filter-select">
+                    <option value="">Todos los géneros</option>
+                    {GENRES.map((g) => <option key={g} value={g}>{g}</option>)}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="filter-year">Año</label>
+                  <select id="filter-year" value={selectedYear}
+                    onChange={(e) => setSelectedYear(e.target.value)} className="filter-select">
+                    <option value="">Todos los años</option>
+                    {generateYears().map((y) => <option key={y} value={y}>{y}</option>)}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="filter-director">Director / Creador</label>
+                  <input id="filter-director" type="text" value={selectedDirector}
+                    onChange={(e) => setSelectedDirector(e.target.value)}
+                    placeholder="Ej: Christopher Nolan" className="filter-input"/>
+                </div>
+                <button type="button" className="btn btn-cancel"
+                  onClick={handleClear} style={{ alignSelf: "flex-end" }}>
+                  Limpiar
+                </button>
+              </div>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
   );
 }
 

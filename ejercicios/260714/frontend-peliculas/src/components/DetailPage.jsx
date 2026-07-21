@@ -43,49 +43,65 @@ function VideoSection({ videos = [], trailer_key }) {
 
   return (
     <div className="detail-trailer">
-      <button
-        className="btn btn-trailer"
-        onClick={() => setVisible(!visible)}
-      >
-        ▶ {visible ? "Ocultar vídeo" : `Ver ${VIDEO_LABEL[videoActual.tipo] ?? videoActual.tipo}`}
+      <button className="btn btn-trailer" onClick={() => setVisible(!visible)}>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"
+          style={{ marginRight: "6px", verticalAlign: "middle" }}>
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        {visible
+          ? "Ocultar vídeo"
+          : `Ver ${VIDEO_LABEL[videoActual.tipo] ?? videoActual.tipo}`}
       </button>
 
       {visible && (
         <div className="trailer-container">
-          {/* Selector de pestañas solo si hay más de un vídeo */}
           {lista.length > 1 && (
             <div className="video-tabs">
               {lista.map((v, idx) => (
-                <button
-                  key={v.key}
+                <button key={v.key}
                   className={`video-tab${idx === activo ? " video-tab--active" : ""}`}
-                  onClick={() => setActivo(idx)}
-                  title={v.titulo}
-                >
+                  onClick={() => setActivo(idx)} title={v.titulo}>
                   {VIDEO_LABEL[v.tipo] ?? v.tipo}
                 </button>
               ))}
             </div>
           )}
-
           <div className="trailer-embed">
-            <iframe
-              key={videoActual.key}
-              width="100%"
-              height="400"
+            <iframe key={videoActual.key} width="100%" height="400"
               src={`https://www.youtube.com/embed/${videoActual.key}`}
               title={videoActual.titulo || videoActual.tipo}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+              allowFullScreen />
           </div>
-
-          {videoActual.titulo && (
-            <p className="video-titulo">{videoActual.titulo}</p>
-          )}
+          {videoActual.titulo && <p className="video-titulo">{videoActual.titulo}</p>}
         </div>
       )}
+    </div>
+  );
+}
+
+/** Muestra valoración numérica + estrellas.
+ *  Si no hay calificación → 5 estrellas vacías + "Pendiente de valoración". */
+function RatingBlock({ calificacion }) {
+  const hasRating = calificacion != null && calificacion > 0;
+  const stars = hasRating ? Math.round(calificacion / 2) : 0;
+
+  return (
+    <div className="rating-container">
+      {hasRating ? (
+        <div className="rating-circle">
+          <span className="rating-value">{calificacion.toFixed(1)}</span>
+          <span className="rating-label">/10</span>
+        </div>
+      ) : (
+        <p className="rating-pending">Pendiente de valoración</p>
+      )}
+      <div className="rating-stars" aria-label={hasRating ? `${stars} de 5 estrellas` : "Sin valoración"}>
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className={i < stars ? "star-full" : "star-empty"}>★</span>
+        ))}
+      </div>
     </div>
   );
 }
@@ -93,7 +109,7 @@ function VideoSection({ videos = [], trailer_key }) {
 function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, onDelete }) {
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error,   setError]   = useState(null);
 
   useEffect(() => {
     const cargarDetalles = async () => {
@@ -111,24 +127,23 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
         setLoading(false);
       }
     };
-
     if (contentId) cargarDetalles();
   }, [contentId, contentType, initialContent]);
 
   if (loading) {
-    return (
-      <div className="detail-page-loading">
-        <p>Cargando detalles...</p>
-      </div>
-    );
+    return <div className="detail-page-loading"><p>Cargando detalles...</p></div>;
   }
 
   if (error || !content) {
     return (
       <div className="detail-page-error">
         <p>❌ {error || "Contenido no encontrado"}</p>
-        <button className="btn btn-primary" onClick={onBack}>
-          ← Volver atrás
+        <button className="btn-back" onClick={onBack}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+            width="16" height="16" aria-hidden="true">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Volver
         </button>
       </div>
     );
@@ -141,45 +156,42 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
     <div className="detail-page">
       {/* Header */}
       <div className="detail-header">
-        <button className="btn-back" onClick={onBack}>← Volver</button>
+        {/* Botón Volver profesional */}
+        <button className="btn-back" onClick={onBack} aria-label="Volver al listado">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+            width="16" height="16" aria-hidden="true">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Volver
+        </button>
+
         <h1>{content.titulo}</h1>
+
         <div className="detail-badges">
-          {!esPersonalizado && <span className="badge badge-tmdb">🎬 TMDB</span>}
-          {esPersonalizado && <span className="badge badge-personal">📝 Personalizada</span>}
+          {!esPersonalizado && <span className="badge badge-tmdb">TMDB</span>}
+          {esPersonalizado  && <span className="badge badge-personal">Personal</span>}
           <span className="badge badge-type">
-            {content.tipo === "pelicula" ? "🎬 Película" : "📺 Serie"}
+            {content.tipo === "pelicula" ? "Película" : "Serie"}
           </span>
         </div>
       </div>
 
       <div className="detail-content">
-        {/* Columna izquierda: Poster */}
+        {/* Columna izquierda: Poster + rating */}
         <div className="detail-poster-section">
           {content.imagen?.trim() ? (
-            <img src={content.imagen} alt={content.titulo} className="detail-poster" />
+            <img src={content.imagen} alt={`Portada de ${content.titulo}`}
+              className="detail-poster" />
           ) : (
             <div className="detail-poster-placeholder">Sin imagen</div>
           )}
 
-          {content.calificacion && (
-            <div className="rating-container">
-              <div className="rating-circle">
-                <span className="rating-value">{content.calificacion.toFixed(1)}</span>
-                <span className="rating-label">/10</span>
-              </div>
-              <div className="rating-stars">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className={i < Math.round(content.calificacion / 2) ? "star-full" : "star-empty"}>
-                    ★
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Siempre se renderiza el bloque de rating */}
+          <RatingBlock calificacion={content.calificacion} />
 
           {esPersonalizado && (
             <div className="detail-actions">
-              <button className="btn btn-edit" onClick={() => onEdit(content)}>✏️ Editar</button>
+              <button className="btn btn-edit"   onClick={() => onEdit(content)}>✏️ Editar</button>
               <button className="btn btn-delete" onClick={() => onDelete(content.id)}>🗑️ Eliminar</button>
             </div>
           )}
@@ -190,8 +202,9 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
           <div className="detail-info-group">
             <h3>Información</h3>
             <p><strong>Título original:</strong> {content.titulo_original || content.titulo || "No disponible"}</p>
-            {content.año && <p><strong>Año:</strong> {content.año}</p>}
-            <p><strong>Idioma original:</strong> {content.idioma_original || "No disponible"}</p>
+            {content.año      && <p><strong>Año:</strong> {content.año}</p>}
+            {content.idioma_original && <p><strong>Idioma original:</strong> {content.idioma_original}</p>}
+            {content.idioma   && <p><strong>Idioma:</strong> {content.idioma}</p>}
             {content.tipo === "pelicula" && content.duracion && (
               <p><strong>Duración:</strong> {content.duracion} minutos</p>
             )}
@@ -209,6 +222,8 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
             <div className="genres-list">
               {content.generos?.length
                 ? content.generos.map((g, idx) => <span key={idx} className="genre-tag">{g}</span>)
+                : content.genero
+                ? <span className="genre-tag">{content.genero}</span>
                 : <span className="muted">No disponibles</span>}
             </div>
           </div>
@@ -220,11 +235,7 @@ function DetailPage({ contentId, contentType, initialContent, onBack, onEdit, on
             </div>
           )}
 
-          {/* VideoSection reemplaza el bloque anterior de trailer */}
-          <VideoSection
-            videos={content.videos}
-            trailer_key={content.trailer_key}
-          />
+          <VideoSection videos={content.videos} trailer_key={content.trailer_key} />
         </div>
       </div>
 

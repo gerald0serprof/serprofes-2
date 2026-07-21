@@ -108,14 +108,15 @@ function App() {
   };
 
   // ---- ELIMINAR ----
-  const removeContent = async (id, type) => {
-    if (!window.confirm("¿Quieres eliminar este contenido personalizado?")) return;
-    try {
-      await (type === "movie" ? deleteMovie : deleteSerie)(id);
-      setSelected(null);
-      await loadCatalogs();
-      setView(type === "movie" ? "movies" : "series");
-    } catch (error) {
+const removeContent = async (id, type) => {
+  if (!window.confirm("¿Quieres eliminar este contenido personalizado?")) return;
+  try {
+    await (type === "movie" ? deleteMovie : deleteSerie)(id);
+    setSelected(null);
+    setServerError(null);
+    await loadCatalogs();
+    setView(type === "movie" ? "movies" : "series");
+  } catch (error) {
       if (error instanceof ApiError) {
         setServerError(error.message);
       } else {

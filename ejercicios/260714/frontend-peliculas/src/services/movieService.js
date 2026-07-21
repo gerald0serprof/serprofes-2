@@ -38,10 +38,7 @@ export async function getMovies() {
 // GET /api/peliculasById/:id
 export async function getMovieById(id) {
   const response = await fetch(`${API_URL}/${id}`);
-  if (!response.ok) {
-    throw new Error("No se pudo obtener la película");
-  }
-  return await response.json();
+  return handleResponse(response);
 }
 
 // POST /api/peliculas

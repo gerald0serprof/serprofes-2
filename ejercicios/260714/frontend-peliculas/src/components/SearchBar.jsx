@@ -41,18 +41,19 @@ function SearchBar({ onSearch, isLoading }) {
   return (
     <div className="search-hero">
       <div className="search-hero-inner">
-        <p className="search-eyebrow">Descubre tu próxima historia</p>
-        <h2 className="search-heading">¿Qué quieres ver hoy?</h2>
+        <p className="search-eyebrow">
+         <svg className="search-eyebrow-icon" viewBox="0 0 24 24" fill="none" 
+          stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          Descubre tu próxima historia
+        </p>
+        <h2 className="search-heading">¿Qué quieres <span>ver hoy</span>?</h2>
 
         <form onSubmit={handleSubmit} className="search-form" noValidate>
           {/* Barra principal */}
           <div className="search-row">
             <div className="search-input-wrap">
-              {/* Icono lupa decorativo dentro del input */}
-              <svg className="search-input-icon" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-              </svg>
               <input
                 id="search-query"
                 type="text"
@@ -75,7 +76,7 @@ function SearchBar({ onSearch, isLoading }) {
               <option value="tv">Series</option>
             </select>
 
-            {/* Botón de búsqueda — solo icono, sin texto */}
+            {/* Botón búsqueda — solo icono lupa, sin texto */}
             <button
               type="submit"
               className="search-submit-btn"
@@ -102,8 +103,8 @@ function SearchBar({ onSearch, isLoading }) {
             className="search-filter-toggle"
             onClick={() => setShowAdvanced(!showAdvanced)}
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-              width="15" height="15" aria-hidden="true">
+            <svg className="search-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+              strokeWidth="2" aria-hidden="true">
               <path d="M22 3H2l8 9.46V19l4 2v-8.54Z"/>
             </svg>
             {showAdvanced ? "Ocultar filtros" : "Filtros avanzados"}
@@ -136,7 +137,7 @@ function SearchBar({ onSearch, isLoading }) {
                     placeholder="Ej: Christopher Nolan" className="filter-input"/>
                 </div>
                 <button type="button" className="btn btn-cancel"
-                  onClick={handleClear} style={{ alignSelf: "flex-end" }}>
+                  onClick={handleClear} style={{ alignSelf: "center" }}>
                   Limpiar
                 </button>
               </div>
